@@ -1,5 +1,3 @@
-
-
 # clase para una pregunta de trivia.
 class Question:
     def __init__(self, description, options, correct_answer):
@@ -20,10 +18,9 @@ class Quiz:
         self.correct_answers = 0
         self.incorrect_answers = 0
 
-    #agregar una nueva pregunta al quiz
+    # agregar una nueva pregunta al quiz
     def add_question(self, question):
         self.questions.append(question)
-
 
     # devuelve la siguiente pregunta del quiz
     def get_next_question(self):
@@ -32,7 +29,6 @@ class Quiz:
             self.current_question_index += 1
             return question
         return None
-
 
     # recibe una respuesta para una pregunta y actualiza el puntaje
     def answer_question(self, question, answer):
@@ -44,8 +40,14 @@ class Quiz:
             return False
 
 
-# ejecuta el juego de trivia que realiza 10 preguntas
+# ejecuta el juego de trivia
 def run_quiz():
+    # agregar interfaz
+    print("Bienvenido al juego de Trivia!")
+    print("Responde las siguientes preguntas seleccionando el número de la opción correcta.")
+    print("Nivel de dificultad: Fácil\n")  # agregar dificultad
+    
+
     quiz = Quiz()
 
     # se crean 2 preguntas de ejemplo
@@ -60,7 +62,6 @@ def run_quiz():
             ["3", "4", "5", "6"],
             "4"
         ),
-        
     ]
 
     # agregamos las preguntas al quiz
@@ -80,13 +81,14 @@ def run_quiz():
             print("No hay más preguntas disponibles. Fin del quiz.")
             break
 
-        print(f"\nRonda {round_number}: {current_question.description}")
+        # presentación de cada pregunta 
+        print(f"\nPregunta {round_number}: {current_question.description}")
         for index, option in enumerate(current_question.options, start=1):
             print(f"  {index}) {option}")
 
         # se solicita la respuesta del usuario y se convierte el número a la opción en texto
         try:
-            user_input = int(input("Ingresa el número de tu respuesta: ").strip())
+            user_input = int(input("Tu respuesta: ").strip())
             if 1 <= user_input <= len(current_question.options):
                 selected_option = current_question.options[user_input - 1]
             else:
@@ -103,12 +105,13 @@ def run_quiz():
 
         round_number += 1
 
-    # se muestra un resumen del juego
-    print("\n--- Resumen del juego ---")
+
+    print("\nJuego terminado.")
+    print("----- Resumen del Juego -----")
+    print(f"Preguntas contestadas: {quiz.current_question_index}")
     print(f"Respuestas correctas: {quiz.correct_answers}")
     print(f"Respuestas incorrectas: {quiz.incorrect_answers}")
 
 
-# si se ejecuta este archivo directamente, se corre el quiz
 if __name__ == "__main__":
     run_quiz()
