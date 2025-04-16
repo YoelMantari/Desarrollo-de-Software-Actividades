@@ -1,0 +1,43 @@
+name: Python CI  # nombre del workflow 
+
+on:
+  push:
+    branches: [develop, main]  # se ejecuta al hacer push en develop o main
+  pull_request:
+    branches: [develop, main]  # se ejecuta cuando haces pull requests hacia esas ramas
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Usa por defecto la última versión de Ubuntu como sistema base
+
+    steps:
+    - name: Checkout del repositorio  # clona o descarga el código del repositorio
+      uses: actions/checkout@v2
+
+    - name: Configurar Python  # se instala y configura Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Instalar dependencias  # se instala paquetes requeridos desde requirements.txt
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Ejecutar tests  # se ejecuta pruebas con pytest
+      run: |
+        pytest
+
+    - name: SonarCloud Scan  # se realiza análisis de calidad de código con SonarCloud
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # token secreto guardado en github
+      with:
+        args: >
+          -Dsonar.projectKey=chalinx_Desarrollo-de-Software-Actividades
+          -Dsonar.organization=chalinx
+          -Dsonar.sources=.
+          -Dsonar.host.url=https://sonarcloud.io
+
+    - name: Pipeline completado  # si todo se completa bien sale un mensaje con exito éxito
+      run: echo "CI/CD completado correctamente y análisis enviado a SonarCloud"
