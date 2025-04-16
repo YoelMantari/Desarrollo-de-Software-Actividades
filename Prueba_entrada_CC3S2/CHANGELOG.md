@@ -56,3 +56,13 @@ El objetivo principal es combinar lógica de programación y buenas prácticas d
 - Se dejó preparado el espacio para incluir niveles de dificultad mas adelante.
 ---
 
+## Día 6 - Configuración de CI/CD y pruebas de integración
+
+### Actividades:
+- Se creó el directorio `.github/workflows/` y el archivo `ci.yml` para configurar GitHub Actions.
+- El pipeline ejecuta automáticamente `pytest` en cada push o pull request a las ramas `develop` y `main`.
+- Se instalaron y agregaron `pytest` y `httpx` en `requirements.txt` para soportar las pruebas automatizadas.
+- Se creó el archivo `tests/integration/test_api.py` para verificar que el endpoint raíz (`/`) de FastAPI responde correctamente.
+- Se validó localmente el funcionamiento correcto de todas las pruebas (`4 passed`).
+- Se creó la rama `feature/ci-cd-integration` y se etiquetó el avance con `v1.0-day6`.
+
