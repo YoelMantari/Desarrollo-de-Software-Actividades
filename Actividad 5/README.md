@@ -72,7 +72,7 @@ Algunas estrategias son mantener una buena comunicación entre los miembros del 
 ## Fusión tipo squash
 ![Descripción](Imagenes/squ1.png)
 ![Descripción](Imagenes/squ2.png)
-
+![Descripción](Imagenes/squ3.png)
 
 1. **Creación del entorno de trabajo**  
    Se creó la carpeta `prueba-squash-merge`.
