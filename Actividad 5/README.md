@@ -95,8 +95,8 @@ Algunas estrategias son mantener una buena comunicación entre los miembros del 
 7. **Fusión tipo squash**  
    Se utilizó `git merge --squash` para combinar todos los commits de `add-basic-files` en un solo conjunto de cambios listos para ser comiteados. Esto permite integrar el trabajo en `main` con un único commit, limpiando el historial.
 
-8. **Eliminación de la rama `add-basic-files`**  
-   Una vez aplicada la fusión squash, se eliminó la rama `add-basic-files` porque ya no era necesaria, y sus cambios fueron incorporados en `main`.
+8. **Eliminación forzada de la rama add-basic-files**
+	Como la fusión squash no crea un commit de fusión en el historial Git no reconoce que la rama add-basic-files haya sido integrada, entonces debido a esto fue necesario eliminarla usando git branch -D lo que fuerza su eliminación aun sin una fusión registrada.
 
 ---
 
