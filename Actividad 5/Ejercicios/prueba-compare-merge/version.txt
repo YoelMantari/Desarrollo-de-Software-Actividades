@@ -1,0 +1,6 @@
+Version 1.0
+Caracteristica 1 agregada
+Caracteristica 2 agregada
+
+Caracteristica 3 paso 1
+Caracteristica 3 paso 2
