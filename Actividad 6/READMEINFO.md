@@ -111,3 +111,17 @@ ___
    Al estar rebaseada, Git permite una fusión limpia y directa sin crear un commit de merge.
 
 ---
+### Preguntas:
+#### ¿Qué sucede con el historial de commits después del `rebase`?
+
+Después de un `git rebase` los commits de la rama actual se reubican encima del último commit de la rama base.
+Esto genera nuevos commits con nuevos identificadores hash, lo que da como resultado un historial lineal y más limpio, sin commits de fusión.
+
+
+#### ¿En qué situación aplicarías una fusión fast-forward en un proyecto ágil?
+
+
+
+En la rama que trabaja con `main` y está actualizada, donde 
+no hay commits nuevos en `main` desde que se creó la rama. Entonces al querer integrar cambios sin generar un commit de merge, se mantiene el historial simple.
+Esto es ideal para equipos ágiles cuando la historia está terminada y lista para integrarse sin conflictos ni ramas paralelas.
