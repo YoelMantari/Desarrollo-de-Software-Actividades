@@ -160,4 +160,15 @@ Trabajar en ramas de funcionalidades separadas durante un sprint es importante p
 
 #### pregunta: ¿Qué ventajas proporciona el rebase durante el desarrollo de un sprint en términos de integración continua?
 
-El uso de rebase durante el desarrollo de un sprint proporciona ventajas importantes para la integración continua, esto permite mantener un historial limpio y lineal lo cual facilita el seguimiento de los cambios y mejora la claridad del repositorio. Al aplicar rebase los desarrolladores actualizan sus ramas con los últimos cambios de la rama principal lo cual reduce la posibilidad de conflictos al momento de integrar el código. Además al tener un historial más ordenado se simplifica el trabajo de los sistemas de integración continua, ya que pueden identificar, probar y desplegar los cambios de manera más eficiente y segura.
+El uso de `rebase` durante el desarrollo de un sprint proporciona ventajas importantes para la integración continua, esto permite mantener un historial limpio y lineal lo cual facilita el seguimiento de los cambios y mejora la claridad del repositorio. Al aplicar rebase los desarrolladores actualizan sus ramas con los últimos cambios de la rama principal lo cual reduce la posibilidad de conflictos al momento de integrar el código. Además al tener un historial más ordenado se simplifica el trabajo de los sistemas de integración continua, ya que pueden identificar, probar y desplegar los cambios de manera más eficiente y segura.
+
+### Fase 3: Revisión del sprint (sprint review)
+### Ejercicio 3: Integración selectiva con git cherry-pick
+
+![Descripción](Imagenes/gss6.png)
+![Descripción](Imagenes/gss7.png)
+![Descripción](Imagenes/gss8.png)
+#### Pregunta: ¿Cómo ayuda git cherry-pick a mostrar avances de forma selectiva en un sprint review?
+
+Al usar`git cherry-pick` ayuda a mostrar avances de forma selectiva en un sprint review porque permite traer únicamente los commits de funcionalidades que ya están completas y listas para demostración sin necesidad de fusionar toda la rama de trabajo. Esto es útil cuando una historia de usuario tiene partes terminadas y otras aún en progreso ya que se puede integrar solo lo necesario para mostrar el avance real manteniendo asi el control sobre qué cambios se presentan y evitando mostrar código incompleto o no probado.
+
