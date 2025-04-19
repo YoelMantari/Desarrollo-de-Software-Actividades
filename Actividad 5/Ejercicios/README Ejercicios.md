@@ -200,3 +200,80 @@ Es muy útil ya que Git puede fusionar cambios automáticamente cuando no hay co
 
 7. **Revisar y aceptar el Pull Request**  
    En GitHub un colaborador revisa los cambios y presiona **"Merge Pull Request"** eligiendo la merge commit.
+
+---
+## Ejercicio Final
+
+
+![Descripción](Imagenes/fin1.png)
+![Descripción](Imagenes/fin2.png)
+![Descripción](Imagenes/fin3.png)
+![Descripción](Imagenes/fin4.png)
+
+
+1. **Inicialización y commit inicial**
+   Se crea el archivo base `archivo.txt` con el contenido `"Proyecto inicial"`.
+   Se agrega al staging con `git add`.
+   Se hace el commit: `"Agregando archivo.txt en rama main"`.
+
+
+2. **Creación de ramas de desarrollo**
+   Se creas las ramas `feature1`, `feature2`, y `feature3`.
+
+
+3. **Desarrollo en `feature1`**
+   Cambias a la rama `feature1`.
+   Se añade dos mensajes al archivo `archivo.txt` `funcion1` y luego `funcion2` en dos commits separados.
+
+
+
+4. **Desarrollo en `feature2`**
+ Cambiar a `feature2`.
+ Se añade la línea `funcion2 run` y haces un commit `"La funcion2 esta corriendo"`.
+
+
+
+5. **Fusión de `feature1` en `main` con fast-forward**
+ Volver a `main`.
+ Se ejecuta `git merge --ff feature1` el cual se aplica sin conflictos ya que `main` no tenía cambios posteriores.
+
+
+6. **Fusión de `feature2` en `main` con `--no-ff`**
+    Se usa `git merge --no-ff feature2 `, pero ocurre un conflicto en `archivo.txt`.
+    Se resuelve el conflicto manualmente tomando ambas versiones.
+    Hacemos `git add` y un commit que documenta la resolución:  
+   `"Se corrige el conflicto entre feature1 y feature2 con main tomando ambas versiones"`.
+
+7. **Desarrollo en `feature3` con múltiples commits**
+   Se cambia a `feature3` y se hace dos commits  
+   - `"Agregando avance de la funcion3"`
+   - `"Agregar avance 2 de la funcion3"`
+
+
+8 **Fusión de `feature3` en `main` con `--squash`**
+   Volvemos a `main` y hacemos `git merge --squash feature3`.  
+   - Git intenta combinar los cambios sin conservar el historial.
+   - Se genera otro conflicto.
+   - Se resuelve el conflicto manualmente y hacemos commit
+---
+
+
+### Revisión del historial y comparación de fusiones
+
+- **Fusión con `--ff` (fast-forward):**  
+  La rama `feature1` se integra de forma lineal, sin crear un commit de merge. El historial queda limpio, pero **no deja evidencia clara** de que hubo una rama separada.
+
+- **Fusión con `--no-ff`:**  
+  En `feature2` se genera un **commit de merge explícito**, lo que permite identificar claramente que hubo una integración de trabajo paralelo. Es útil para **mantener trazabilidad** en proyectos colaborativos.
+
+- **Fusión con `--squash`:**  
+  En `feature3`, se aplastan múltiples commits en uno solo. El historial de `main` queda limpio, pero se **pierden los detalles** del desarrollo individual. Es útil para **resumir cambios** cuando no se necesita conservar cada paso.
+
+---
+
+### Conclusión: ¿Qué estrategia es mejor para proyectos grandes?
+
+- Para equipos pequeños o cambios simples `--ff` es suficiente.
+- Para proyectos grandes o colaborativos, lo más recomendable son:
+  - El uso de  `--no-ff` para mantener claridad y trazabilidad.
+  - Y el uso de `--squash` cuando se quiera resumir muchos cambios en uno solo .
