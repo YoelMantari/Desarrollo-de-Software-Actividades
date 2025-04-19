@@ -172,3 +172,18 @@ El uso de `rebase` durante el desarrollo de un sprint proporciona ventajas impor
 
 Al usar`git cherry-pick` ayuda a mostrar avances de forma selectiva en un sprint review porque permite traer únicamente los commits de funcionalidades que ya están completas y listas para demostración sin necesidad de fusionar toda la rama de trabajo. Esto es útil cuando una historia de usuario tiene partes terminadas y otras aún en progreso ya que se puede integrar solo lo necesario para mostrar el avance real manteniendo asi el control sobre qué cambios se presentan y evitando mostrar código incompleto o no probado.
 
+
+### Fase 4: Retrospectiva del sprint (sprint retrospective)
+### Ejercicio 4: Revisión de conflictos y resolución
+
+![Descripción](Imagenes/gss9.png)
+![Descripción](Imagenes/gss10.png)
+![Descripción](Imagenes/gss11.png)
+![Descripción](Imagenes/gss12.png)
+![Descripción](Imagenes/gss13.png)
+
+#### Pregunta: ¿Cómo manejas los conflictos de fusión al final de un sprint?
+Para manejar los conflictos de fusión al final de un sprint es importante identificar y resolver los archivos en conflicto de forma inmediata, revisar de manera cuidadosa los cambios de cada rama y eligiendo cual conservar. 
+
+#### Cómo puede el equipo mejorar la comunicación para evitar conflictos grandes?
+Para evitar conflictos grandes el equipo puede mejorar la comunicación manteniendo actualizadas sus ramas mediante pull y rebase frecuentes revisando qué otras historias están tocando los mismos archivos y acordando buenas prácticas de codificación. 
