@@ -76,3 +76,38 @@ ___
 
 	En `git cherry-pick` permite aplicar solo los commits necesarios a producción, sin fusionar toda la rama. Es útil si solo algunos cambios del Sprint están listos ademas que ayuda a entregar valor puntual, aunque puede generar conflictos si los commits están relacionados o se duplican luego al hacer merge.
 
+## Ejercicios prácticos
+
+### Simulación de un flujo de trabajo Scrum con git rebase y git merge
+ 
+![Descripción](Imagenes/scrum1.png)
+![Descripción](Imagenes/scrum2.png)
+![Descripción](Imagenes/scrum3.png)
+
+1. **Creación del proyecto local**
+   Se crea la carpeta `scrum-workflow`.
+   Se inicializa el archivo `mainfile.md` con el contenido `"Commit inicial en main"`.
+
+2. **Primer commit en la rama `main`**
+   Se agrega y se realiza el commit inicial: `"Inicializar commit en la rama main"`.
+
+3. **Creación de la rama `feature`**
+   Se crea y cambia a la rama `feature` usando `git checkout -b`.
+
+4. **Desarrollo de una nueva funcionalidad**
+   Se crea el archivo `featurefile.md` con contenido.
+   Se hace un commit: `"Commit en feature"`.
+
+5. **Se continúa el trabajo en `main`**
+   Se regresa a `main` y se actualiza `mainfile.md`.
+   Se realiza el commit: `"Actualización en main"`.
+
+6. **Rebase de `feature` sobre `main`**
+   Se cambia a `feature` y se ejecuta `git rebase main`.
+   Esto reubica el commit de `feature` encima del commit más reciente de `main`, manteniendo un historial lineal.
+
+7. **Fusión final de `feature` en `main` con fast-forward**
+   Se regresa a `main` y se ejecuta `git merge feature --ff-only`.
+   Al estar rebaseada, Git permite una fusión limpia y directa sin crear un commit de merge.
+
+---
