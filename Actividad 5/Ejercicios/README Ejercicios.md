@@ -159,14 +159,6 @@ Usaria cuando una fusión ya ha sido comiteada y se necesita revertir los cambio
 Es muy útil ya que Git puede fusionar cambios automáticamente cuando no hay conflictos. Sin embargo, si hay conflictos en las mismas líneas puede fallar y requerir intervención manual.
 
 ---
-¡Perfecto! A continuación te presento la **explicación completa, detallada y enumerada** del ejercicio de **fusión remota en un repositorio colaborativo**, incluyendo:
-
-- Creación de la rama
-- Push al repositorio remoto
-- Pull Request en GitHub
-- Fusión de la rama a `main`
-
----
 
 ![Descripción](Imagenes/frr1.png)
 ![Descripción](Imagenes/frr2.png)
