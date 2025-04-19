@@ -1,3 +1,7 @@
 Proyecto inicial
+<<<<<<< HEAD
 funcion1
 funcion2
+=======
+funcion2 run
+>>>>>>> feature2
