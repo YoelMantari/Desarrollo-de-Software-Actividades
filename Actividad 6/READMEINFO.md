@@ -35,6 +35,7 @@ Después de realizar el rebase, visualiza el historial de commits con:
 ![Descripción](Imagenes/chp4.png)
 ![Descripción](Imagenes/chp5.png)
 
+## Preguntas de discusión:
 
 1. ### ¿Por qué `rebase` ayuda a mantener un historial más lineal que merge?
 
@@ -57,3 +58,21 @@ Después de realizar el rebase, visualiza el historial de commits con:
 4. ### ¿Por qué evitar `rebase` en ramas públicas?
 
 	Porque al hacer `rebase`los commits cambian osea tienen otro hash, si otros ya trabajan esa rama sus historiales ya no coincidirán lo que causa conflictos.
+
+___
+## Ejercicios teóricos
+
+1. ### Diferencias entre `git merge` y `git rebase`
+
+	En `git merge` combina ramas manteniendo su historial y crea un commit de fusión dando esto utilidad para mantener trazabilidad en equipos Scrum al integrar historias completas, mientras `git rebase` reescribe el historial colocando los commits encima de otra rama, dejando el historial más limpio y lineal ideal para uso individual durante el desarrollo antes del merge final.
+
+
+2. ### Relación entre `git rebase` y DevOps
+
+	En `git rebase` ayuda a DevOps porque mantiene un historial lineal y limpio lo que facilita la automatización de pipelines y la integración continua, donde un historial lineal simplifica las revisiones de código y mejora la entrega continua en entornos CI/CD.
+	
+
+3. ### Impacto de `git cherry-pick` en un equipo Scrum
+
+	En `git cherry-pick` permite aplicar solo los commits necesarios a producción, sin fusionar toda la rama. Es útil si solo algunos cambios del Sprint están listos ademas que ayuda a entregar valor puntual, aunque puede generar conflictos si los commits están relacionados o se duplican luego al hacer merge.
+
