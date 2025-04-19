@@ -125,3 +125,21 @@ Esto genera nuevos commits con nuevos identificadores hash, lo que da como resul
 En la rama que trabaja con `main` y está actualizada, donde 
 no hay commits nuevos en `main` desde que se creó la rama. Entonces al querer integrar cambios sin generar un commit de merge, se mantiene el historial simple.
 Esto es ideal para equipos ágiles cuando la historia está terminada y lista para integrarse sin conflictos ni ramas paralelas.
+
+## Cherry-pick para integración selectiva en un pipeline CI/CD
+
+![Descripción](Imagenes/chpCC1.png)
+### ¿Cómo utilizarías `cherry-pick` en un pipeline de CI/CD?
+
+Usaría `git cherry-pick` para seleccionar y aplicar solo los commits que están listos y aprobados desde una rama de desarrollo o funcionalidad hacia la rama de producción (`main` o `release`).  
+Esto permite desplegar cambios puntuales sin necesidad de fusionar toda la rama.
+
+### ¿Qué ventajas ofrece `cherry-pick` en un flujo DevOps?
+
+Permite mover solo los commits necesarios, sin arrastrar otros no deseados. Facilita hotfixes o actualizaciones rápidas sin esperar un merge completo. Ideal en entornos donde los ciclos de desarrollo y despliegue están desacoplados. Permite evitar conflictos o cambios inestables al mantener ramas separadas.
+
+---
+
+## Git, Scrum y Sprints
+
+### Fase 1: Planificación del sprint (sprint planning)
