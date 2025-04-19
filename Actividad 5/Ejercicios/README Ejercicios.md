@@ -85,3 +85,39 @@ Permite mantener un historial más claro ya que cada fusión genera un commit qu
 #### Problemas al abusar
 Puede generar un historial más extenso y difícil de leer si se crean commits de fusión innecesarios. Además, si se acumulan muchas ramas sin fusionar, aumenta la probabilidad de conflictos y se pierde simplicidad en el manejo del repositorio.
 
+
+## EJercicio 3
+
+
+### Fusión con `--squash` para aplanar múltiples commits
+![Descripción](Imagenes/squ1.png)
+![Descripción](Imagenes/squ2.png)
+![Descripción](Imagenes/squ3.png)
+![Descripción](Imagenes/squ4.png)
+![Descripción](Imagenes/squ5.png)
+1. **Inicialización del repositorio**  
+   Se creó un nuevo repositorio local llamado `merge-squash` e inició con un archivo `archivo.txt` que fue registrado con un commit inicial en la rama `main`.
+
+2. **Creación de la rama `feature`**  
+   Desde la rama principal, se creó una nueva rama `feature` para desarrollar mejoras al archivo existente.
+
+3. **Múltiples commits en la rama `feature`**  
+   En `feature`, se realizaron tres mejoras diferentes al archivo `archivo.txt` y cada una fue registrada con su propio commit. Esto simula un desarrollo progresivo y detallado de una funcionalidad.
+
+4. **Verificación del historial en `feature`**  
+   Al ejecutar `git log --oneline`o este caso al ver Sublime Merge, se observó un historial con tres commits correspondientes a los cambios realizados en la rama `feature`.
+
+5. **Cambio a la rama `main` y fusión con `--squash`**  
+   Se volvió a la rama `main` y se utilizó `git merge --squash feature`. Esto combinó todos los cambios de la rama `feature` en un solo bloque de cambios pendientes, **sin traer los commits individuales**.
+
+6. **Commit final unificado**  
+   Se realizó un único commit en `main` que integró todas las mejoras de `feature` en una sola entrada del historial, con un mensaje personalizado.
+
+7. **Verificación del historial en `main`**  
+   Al revisar el historial con `git log --graph --oneline` o con Sublime Merge, se observó solo un commit que representa la integración, lo que **aplasta** los commits de la rama `feature` y deja el historial limpio.
+
+8. **Eliminación de la rama `feature`**  
+   Como los cambios ya fueron integrados en `main`, se eliminó la rama `feature` usando `git branch -d feature`
+   de esta manera se limpia el repositorio.
+
+---
