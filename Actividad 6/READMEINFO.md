@@ -143,3 +143,21 @@ Permite mover solo los commits necesarios, sin arrastrar otros no deseados. Faci
 ## Git, Scrum y Sprints
 
 ### Fase 1: Planificación del sprint (sprint planning)
+### Ejercicio 1: Crear ramas de funcionalidades (feature branches)
+
+![Descripción](Imagenes/gss1.png)
+![Descripción](Imagenes/gss2.png)
+
+#### Pregunta: ¿Por qué es importante trabajar en ramas de funcionalidades separadas durante un sprint?
+Trabajar en ramas de funcionalidades separadas durante un sprint es importante porque permite aislar los cambios de cada historia de usuario, evitando que interfieran entre sí. Esto facilita el trabajo en paralelo del equipo, mejora la organización, y permite probar y revisar cada funcionalidad por separado. Además, ayuda a mantener la rama principal `main`limpia y estable ya que solo se integran los cambios que están completos y verificados. De esta forma, se asegura una mejor calidad del código y una integración más controlada al final del sprint.
+
+### Fase 2: Desarrollo del sprint (sprint execution)
+### Ejercicio 2: Integración continua con git rebase
+![Descripción](Imagenes/gss3.png)
+![Descripción](Imagenes/gss4.png)
+![Descripción](Imagenes/gss5.png)
+
+
+#### pregunta: ¿Qué ventajas proporciona el rebase durante el desarrollo de un sprint en términos de integración continua?
+
+El uso de rebase durante el desarrollo de un sprint proporciona ventajas importantes para la integración continua, esto permite mantener un historial limpio y lineal lo cual facilita el seguimiento de los cambios y mejora la claridad del repositorio. Al aplicar rebase los desarrolladores actualizan sus ramas con los últimos cambios de la rama principal lo cual reduce la posibilidad de conflictos al momento de integrar el código. Además al tener un historial más ordenado se simplifica el trabajo de los sistemas de integración continua, ya que pueden identificar, probar y desplegar los cambios de manera más eficiente y segura.
