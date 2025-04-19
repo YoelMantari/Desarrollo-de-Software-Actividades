@@ -129,7 +129,7 @@ Puede generar un historial más extenso y difícil de leer si se crean commits d
 ![Descripción](Imagenes/cm3.png)
 ![Descripción](Imagenes/cm4.png)
 ![Descripción](Imagenes/cm5.png)
-[Descripción](Imagenes/cm6.png)
+![Descripción](Imagenes/cm6.png)
 ![Descripción](Imagenes/cm7.png)
 ![Descripción](Imagenes/cm8.png)
 
@@ -157,3 +157,46 @@ Usaria cuando una fusión ya ha sido comiteada y se necesita revertir los cambio
 
 #### ¿Qué tan útil es la función de fusión automática en Git?
 Es muy útil ya que Git puede fusionar cambios automáticamente cuando no hay conflictos. Sin embargo, si hay conflictos en las mismas líneas puede fallar y requerir intervención manual.
+
+---
+¡Perfecto! A continuación te presento la **explicación completa, detallada y enumerada** del ejercicio de **fusión remota en un repositorio colaborativo**, incluyendo:
+
+- Creación de la rama
+- Push al repositorio remoto
+- Pull Request en GitHub
+- Fusión de la rama a `main`
+
+---
+
+![Descripción](Imagenes/frr1.png)
+![Descripción](Imagenes/frr2.png)
+![Descripción](Imagenes/frr3.png)
+![Descripción](Imagenes/frr4.png)
+![Descripción](Imagenes/frr5.png)
+![Descripción](Imagenes/frr6.png)
+![Descripción](Imagenes/frr7.png)
+![Descripción](Imagenes/frr8.png)
+
+### Ejercicio: Fusión remota en un repositorio colaborativo
+
+1. **Clonar o abrir el repositorio**  
+   Se trabajó dentro del repositorio `Desarrollo-de-Software-Actividades` alojado en GitHub.
+
+2. **Crear una nueva rama de trabajo**  
+   Se creó una nueva rama llamada `colaboracion` con el siguiente comando.
+
+3. **Crear un archivo de prueba de colaboración**  
+   Se creó el archivo `colaboracion.txt` con el contenido `"Colaboración remota"`.
+
+4. **Agregar y hacer commit del nuevo archivo**  
+   Se añadió el archivo al área de staging y se registró con un commit.
+
+5. **Enviar la rama al repositorio remoto en GitHub**  
+   Se empujó la rama `colaboracion` al servidor remoto, al finalizar GitHub proporcionó un enlace para crear un Pull Request.
+
+
+6. **Crear el Pull Request**  
+   En GitHub, se ingresó al enlace sugerido al hacer push, y se completó el formulario del Pull Request 
+
+7. **Revisar y aceptar el Pull Request**  
+   En GitHub un colaborador revisa los cambios y presiona **"Merge Pull Request"** eligiendo la merge commit.
