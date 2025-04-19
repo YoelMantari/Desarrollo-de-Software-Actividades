@@ -187,3 +187,24 @@ Para manejar los conflictos de fusión al final de un sprint es importante ident
 
 #### Cómo puede el equipo mejorar la comunicación para evitar conflictos grandes?
 Para evitar conflictos grandes el equipo puede mejorar la comunicación manteniendo actualizadas sus ramas mediante pull y rebase frecuentes revisando qué otras historias están tocando los mismos archivos y acordando buenas prácticas de codificación. 
+
+### Fase 5: Fase de desarrollo, automatización de integración continua (CI) con git rebase
+### Ejercicio 5: Automatización de rebase con hooks de Git
+
+![Descripción](Imagenes/gss14.png)
+![Descripción](Imagenes/gss17.png)
+![Descripción](Imagenes/gss15.png)
+![Descripción](Imagenes/gss16.png)
+
+#### Pregunta: ¿Qué ventajas y desventajas observas al automatizar el rebase en un entorno de CI/CD?
+
+
+### **Ventaja:**
+
+Automatizar el `rebase` permite mantener un historial limpio y ordenado en el repositorio. Esto facilita la lectura, revisión del código y depuración durante la integración continua.
+
+---
+
+### **Desventaja:**
+
+Si se aplica `rebase` en ramas compartidas por varios desarrolladores, puede causar conflictos o sobrescribir cambios, lo que complica la colaboración y puede generar errores difíciles de rastrear.
