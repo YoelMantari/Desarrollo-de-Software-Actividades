@@ -134,15 +134,15 @@ Puede generar un historial más extenso y difícil de leer si se crean commits d
 ![Descripción](Imagenes/cm8.png)
 
 1. **Inicio del proyecto**  
-   Se creó el repositorio `prueba-compare-merge` y se registró un commit inicial con el archivo `version.txt` indicando la versión 1.0.
+   Se creó el repositorio `prueba-compare-merge` y se registró un commit inicial con el archivo `version.txt`.
 
 2. **Rama `feature-1` y fusión fast-forward**  
    En `feature-1` se añadió una característica y luego se fusionó con `main` usando `git merge --ff`.  
    Esto **avanzó directamente el puntero de `main`** al commit de `feature-1`, sin crear un commit de fusión.
 
 3. **Rama `feature-2` y fusión con conflicto (`--no-ff`)**  
-   En `feature-2` se agregó otra línea al mismo archivo. Al intentar fusionarla con `main` usando `git merge --no-ff`, **se produjo un conflicto** porque `version.txt` fue modificado en la misma zona por ambas ramas.  
-   El conflicto fue **resuelto manualmente aceptando ambas versiones**, y se realizó el commit con el mensaje:  
+   En `feature-2` se agregó otra línea al mismo archivo. Al intentar fusionarla con `main` usando `git merge --no-ff`, **se produjo un conflicto** porque `version.txt` fue modificado en la misma lineas por ambas ramas.  
+   El conflicto fue resuelto manualmente aceptando ambas versiones, y se realizó el commit con el mensaje:  
    `"Corrigiendo el conflicto y aceptando las 2 versiones de feature"`.
 
 4. **Rama `feature-3` y fusión con squash**  
@@ -150,3 +150,10 @@ Puede generar un historial más extenso y difícil de leer si se crean commits d
    Luego se fusionó con `main` usando `git merge --squash`.  
    Esto combinó los dos commits **en un solo conjunto de cambios**, y se hizo un solo commit en `main` con el mensaje:  
    `"Agregar caracteristica 3 en un commit"`.
+
+#### Preguntas: Cuándo usarías un comando como git revert para deshacer una fusión?
+
+Usaria cuando una fusión ya ha sido comiteada y se necesita revertir los cambios sin borrar el historial, especialmente si la fusión trajo errores o conflictos mal resueltos. Es útil para mantener un registro limpio y controlado del repositorio.
+
+#### ¿Qué tan útil es la función de fusión automática en Git?
+Es muy útil ya que Git puede fusionar cambios automáticamente cuando no hay conflictos. Sin embargo, si hay conflictos en las mismas líneas puede fallar y requerir intervención manual.
