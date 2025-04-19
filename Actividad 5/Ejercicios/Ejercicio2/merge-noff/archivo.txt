@@ -1,1 +1,2 @@
 Inicio del proyecto
+Se desarrollo una nueva funcionalidad en la rama feature-2
