@@ -4,17 +4,25 @@ import re
 # Función para convertir palabras numéricas a números
 def convertir_palabra_a_numero(palabra):
     try:
-        return int(palabra)
+        return float(palabra)
     except ValueError:
         numeros = {
-            "cero": 0, "uno": 1, "una": 1, "dos": 2, "tres": 3, "cuatro": 4, "cinco": 5,
-            "seis": 6, "siete": 7, "ocho": 8, "nueve": 9, "diez": 10, "once": 11,
-            "doce": 12, "trece": 13, "catorce": 14, "quince": 15, "dieciséis": 16,
-            "diecisiete": 17, "dieciocho": 18, "diecinueve": 19, "veinte": 20,
-            "treinta": 30, "cuarenta": 40, "cincuenta": 50, "sesenta": 60, "setenta": 70,
-            "ochenta": 80, "noventa": 90, "media": 0.5
+            # Español
+            "cero": 0, "uno": 1, "una": 1, "dos": 2, "tres": 3, "cuatro": 4,
+            "cinco": 5, "seis": 6, "siete": 7, "ocho": 8, "nueve": 9, "diez": 10,
+            "once": 11, "doce": 12, "trece": 13, "catorce": 14, "quince": 15,
+            "veinte": 20, "treinta": 30, "cuarenta": 40, "cincuenta": 50,
+            "sesenta": 60, "setenta": 70, "ochenta": 80, "noventa": 90, "media": 0.5,
+            # Inglés
+            "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
+            "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
+            "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14,
+            "fifteen": 15, "twenty": 20, "thirty": 30, "forty": 40,
+            "fifty": 50, "sixty": 60, "seventy": 70, "eighty": 80, "ninety": 90,
+            "half": 0.5
         }
         return numeros.get(palabra.lower(), 0)
+
 
 @given('que he comido {cukes:g} pepinos')
 def step_given_eaten_cukes(context, cukes):
