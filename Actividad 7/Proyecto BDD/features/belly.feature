@@ -55,6 +55,11 @@ Característica: Comportamiento del Estómago
     Cuando espero un tiempo aleatorio entre 1 y 3 horas
     Entonces mi estómago debería gruñir
 
+  @spanish
+  Escenario: Manejar una cantidad no válida de pepinos (más de 100)
+    Dado que he comido 120 pepinos
+    Entonces debería ocurrir un error de cantidad negativa.
+
   @english
   Escenario: Esperar usando horas en inglés
     Dado que he comido 20 pepinos

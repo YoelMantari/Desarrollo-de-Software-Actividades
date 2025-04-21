@@ -17,3 +17,8 @@ def test_pepinos_negativos():
     b = Belly()
     with pytest.raises(ValueError, match="negativa"):
         b.comer(-5)
+        
+def test_pepinos_mayor_que_100():
+    b = Belly()
+    with pytest.raises(ValueError, match="más de 100"):
+        b.comer(120)

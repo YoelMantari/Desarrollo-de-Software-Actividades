@@ -94,4 +94,4 @@ def step_then_belly_should_not_growl(context):
 
 @then('debería ocurrir un error de cantidad negativa.')
 def step_then_error_pepinos(context):
-    assert hasattr(context, 'error') and "negativa" in context.error
+    assert hasattr(context, 'error') and "no se puede comer" in context.error.lower()
