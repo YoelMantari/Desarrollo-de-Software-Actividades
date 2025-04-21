@@ -28,3 +28,9 @@ def test_escalabilidad_1000_pepinos():
     b.comer(1000)
     b.esperar(10)
     assert b.esta_gruñendo()
+
+def test_gruñir_si_comido_muchos_pepinos():
+    belly = Belly()
+    belly.comer(15)
+    belly.esperar(2)
+    assert belly.esta_gruñendo()
