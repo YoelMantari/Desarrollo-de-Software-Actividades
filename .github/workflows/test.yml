@@ -21,8 +21,8 @@ jobs:
         python-version: '3.9'
 
     - name: Instalar dependencias
-      working-directory: "Actividad 7/Proyecto BDD"
       run: |
+        cd "Actividad 7/Proyecto BDD"
         pip install --upgrade pip
         pip install -r requirements.txt
 
@@ -31,12 +31,14 @@ jobs:
       run: |
         pytest --cov=src tests/
 
-    - name: Ejecutar pruebas BDD (español)
-      working-directory: "Actividad 7/Proyecto BDD"
+    - name: Ejecutar pruebas BDD
       run: |
+        cd "Actividad 7/Proyecto BDD"
+        source venv/bin/activate
         behave --tags=@spanish
 
-    - name: Ejecutar pruebas BDD (inglés)
-      working-directory: "Actividad 7/Proyecto BDD"
+    - name: Ejecutar pruebas BDD en inglés
       run: |
+        cd "Actividad 7/Proyecto BDD"
+        source ven/bin/activate
         behave --tags=@english
