@@ -66,6 +66,26 @@ Característica: Comportamiento del Estómago
     Cuando espero 10 horas
     Entonces mi estómago debería gruñir
 
+  @spanish
+  Escenario: Manejar tiempos complejos con coma y 'y'
+    Dado que he comido 50 pepinos
+    Cuando espero "1 hora, 30 minutos y 45 segundos"
+    Entonces mi estómago debería gruñir
+
+  @spanish
+  Escenario: Manejar tiempos complejos con solo espacios
+    Dado que he comido 50 pepinos
+    Cuando espero "1 hora 30 minutos 45 segundos"
+    Entonces mi estómago debería gruñir
+
+  @spanish
+  Escenario: Manejar tiempos complejos con solo 'y'
+    Dado que he comido 50 pepinos
+    Cuando espero "1 hora y 30 minutos y 45 segundos"
+    Entonces mi estómago debería gruñir
+
+    
+
   @english
   Escenario: Esperar usando horas en inglés
     Dado que he comido 20 pepinos
