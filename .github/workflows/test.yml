@@ -27,12 +27,12 @@ jobs:
       run: |
         pytest --cov=src tests/
 
-    - name: Ejecutar pruebas BDD (español)
+    - name: Ejecutar pruebas BDD español
       working-directory: "Actividad 7/Proyecto BDD"
       run: |
         behave --tags=@spanish
 
-    - name: Ejecutar pruebas BDD (inglés)
+    - name: Ejecutar pruebas BDD inglés
       working-directory: "Actividad 7/Proyecto BDD"
       run: |
         behave --tags=@english
