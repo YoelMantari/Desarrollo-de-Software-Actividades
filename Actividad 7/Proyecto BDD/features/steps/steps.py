@@ -34,14 +34,21 @@ def step_given_eaten_cukes(context, cukes):
 @when('espero {time_description}')
 def step_when_wait_time_description(context, time_description):
     time_description = time_description.strip('"').lower()
-    time_description = time_description.replace('y', ' ')
+    time_description = time_description.replace(' y ', ' ')
+    time_description = time_description.replace(' and ', ' ')
+    time_description = time_description.replace(',', ' ')
     time_description = time_description.strip()
 
-    if time_description == 'media hora':
+    if time_description in ['media hora', 'half hour']:
         total_time_in_hours = 0.5
     else:
-        pattern = re.compile(r'(?:(\w+)\s*horas?)?\s*(?:(\w+)\s*minutos?)?')
-        match = pattern.match(time_description)
+        pattern = re.compile(
+            r'(?:(\w+)\s*(?:hora|horas|hour|hours))?\s*'
+            r'(?:(\w+)\s*(?:minuto|minutos|minute|minutes))?\s*'
+            r'(?:(\w+)\s*(?:segundo|segundos|second|seconds))?')
+
+        
+        match = pattern.fullmatch(time_description)
 
         if match:
             hours_word = match.group(1) or "0"
@@ -69,4 +76,3 @@ def step_then_belly_should_not_growl(context):
 @then('debería ocurrir un error de cantidad negativa.')
 def step_then_error_pepinos(context):
     assert hasattr(context, 'error') and "negativa" in context.error
-    
