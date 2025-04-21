@@ -1,5 +1,6 @@
 from behave import given, when, then
 import re
+import random 
 
 # Función para convertir palabras numéricas a números
 def convertir_palabra_a_numero(palabra):
@@ -13,7 +14,7 @@ def convertir_palabra_a_numero(palabra):
             "once": 11, "doce": 12, "trece": 13, "catorce": 14, "quince": 15,
             "veinte": 20, "treinta": 30, "cuarenta": 40, "cincuenta": 50,
             "sesenta": 60, "setenta": 70, "ochenta": 80, "noventa": 90, "media": 0.5,
-            # Inglés
+            # Ingles
             "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
             "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
             "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14,
@@ -22,6 +23,9 @@ def convertir_palabra_a_numero(palabra):
             "half": 0.5
         }
         return numeros.get(palabra.lower(), 0)
+
+
+
 
 
 @given('que he comido {cukes:g} pepinos')
@@ -33,11 +37,26 @@ def step_given_eaten_cukes(context, cukes):
 
 @when('espero {time_description}')
 def step_when_wait_time_description(context, time_description):
-    time_description = time_description.strip('"').lower()
+    raw = time_description.strip('"').lower()
+    time_description = raw
     time_description = time_description.replace(' y ', ' ')
     time_description = time_description.replace(' and ', ' ')
     time_description = time_description.replace(',', ' ')
     time_description = time_description.strip()
+
+    if "un tiempo aleatorio entre" in raw:
+        match = re.match(r'un tiempo aleatorio entre\s+(\d+(?:\.\d+)?)\s+y\s+(\d+(?:\.\d+)?)\s+horas?',raw)
+        if match:
+            min_horas = float(match.group(1))
+            max_horas = float(match.group(2))
+
+            random.seed(42)  # semilla fija para CI
+            tiempo_random = random.uniform(min_horas, max_horas)
+            print(f"[DEBUG] Tiempo aleatorio elegido: {tiempo_random:.2f} horas")
+
+            context.belly.esperar(tiempo_random)
+            return
+
 
     if time_description in ['media hora', 'half hour']:
         total_time_in_hours = 0.5
@@ -47,7 +66,7 @@ def step_when_wait_time_description(context, time_description):
             r'(?:(\w+)\s*(?:minuto|minutos|minute|minutes))?\s*'
             r'(?:(\w+)\s*(?:segundo|segundos|second|seconds))?')
 
-        
+
         match = pattern.fullmatch(time_description)
 
         if match:
