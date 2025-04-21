@@ -17,8 +17,14 @@ def test_pepinos_negativos():
     b = Belly()
     with pytest.raises(ValueError, match="negativa"):
         b.comer(-5)
-        
+
 def test_pepinos_mayor_que_100():
     b = Belly()
-    with pytest.raises(ValueError, match="más de 100"):
-        b.comer(120)
+    with pytest.raises(ValueError, match="más de 1000"):
+        b.comer(1500)
+
+def test_escalabilidad_1000_pepinos():
+    b = Belly()
+    b.comer(1000)
+    b.esperar(10)
+    assert b.esta_gruñendo()

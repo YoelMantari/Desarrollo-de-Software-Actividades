@@ -56,9 +56,15 @@ Característica: Comportamiento del Estómago
     Entonces mi estómago debería gruñir
 
   @spanish
-  Escenario: Manejar una cantidad no válida de pepinos (más de 100)
-    Dado que he comido 120 pepinos
+  Escenario: Manejar una cantidad no válida de pepinos más de 1000
+    Dado que he comido 1500 pepinos
     Entonces debería ocurrir un error de cantidad negativa.
+
+  @spanish
+  Escenario: Comer 1000 pepinos y esperar 10 horas
+    Dado que he comido 1000 pepinos
+    Cuando espero 10 horas
+    Entonces mi estómago debería gruñir
 
   @english
   Escenario: Esperar usando horas en inglés
