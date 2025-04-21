@@ -90,6 +90,18 @@ Característica: Comportamiento del Estómago
     Cuando espero 2 horas
     Entonces mi estómago debería gruñir
 
+  @spanish
+  Escenario: Comer suficientes pepinos y esperar el tiempo adecuado
+    Dado que he comido 20 pepinos
+    Cuando espero 2 horas
+    Entonces mi estómago debería gruñir
+
+  @spanish
+  Escenario: Comer pocos pepinos y no esperar suficiente tiempo
+    Dado que he comido 5 pepinos
+    Cuando espero 1 hora
+    Entonces mi estómago no debería gruñir
+
   @english
   Escenario: Esperar usando horas en inglés
     Dado que he comido 20 pepinos
