@@ -23,18 +23,24 @@ jobs:
     - name: Instalar dependencias
       run: |
         cd "Actividad 7/Proyecto BDD"
-        python -m venv venv
-        source venv/bin/activate
+        python -m venv act9
+        source act9/bin/activate
         pip install -r requirements.txt
 
     - name: Ejecutar pruebas unitarias
       run: |
         cd "Actividad 7/Proyecto BDD"
-        source venv/bin/activate
+        source act9/bin/activate
         pytest --cov=src tests/
 
     - name: Ejecutar pruebas BDD
       run: |
         cd "Actividad 7/Proyecto BDD"
-        source venv/bin/activate
-        behave
+        source act9/bin/activate
+        behave --tags=@spanish
+
+    - name: Ejecutar pruebas BDD en inglés
+      run: |
+        cd "Actividad 7/Proyecto BDD"
+        source act9/bin/activate
+        behave --tags=@english
