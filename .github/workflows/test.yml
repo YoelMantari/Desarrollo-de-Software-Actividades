@@ -1,6 +1,12 @@
 name: Pruebas BDD y Unitarias
 
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - 'Actividad 7/Proyecto BDD/**'
+  pull_request:
+    paths:
+      - 'Actividad 7/Proyecto BDD/**'
 
 jobs:
   test:
@@ -16,16 +22,19 @@ jobs:
 
     - name: Instalar dependencias
       run: |
+        cd "Actividad 7/Proyecto BDD"
         python -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
 
     - name: Ejecutar pruebas unitarias
       run: |
+        cd "Actividad 7/Proyecto BDD"
         source venv/bin/activate
         pytest --cov=src tests/
 
     - name: Ejecutar pruebas BDD
       run: |
+        cd "Actividad 7/Proyecto BDD"
         source venv/bin/activate
         behave
