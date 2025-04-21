@@ -16,9 +16,12 @@ def convertir_palabra_a_numero(palabra):
         }
         return numeros.get(palabra.lower(), 0)
 
-@given('que he comido {cukes:d} pepinos')
+@given('que he comido {cukes:g} pepinos')
 def step_given_eaten_cukes(context, cukes):
-    context.belly.comer(cukes)
+    try:
+        context.belly.comer(cukes)
+    except ValueError as e:
+        context.error = str(e)
 
 @when('espero {time_description}')
 def step_when_wait_time_description(context, time_description):
@@ -54,3 +57,8 @@ def step_then_belly_should_growl(context):
 @then('mi estómago no debería gruñir')
 def step_then_belly_should_not_growl(context):
     assert not context.belly.esta_gruñendo(), "Se esperaba que el estómago no gruñera, pero lo hizo."
+
+@then('debería ocurrir un error de cantidad negativa.')
+def step_then_error_pepinos(context):
+    assert hasattr(context, 'error') and "negativa" in context.error
+    
