@@ -15,6 +15,7 @@ behave.log
 # Entorno virtual
 venv/
 env/
+act9/
 
 # Archivos del sistema/editor
 *.swp

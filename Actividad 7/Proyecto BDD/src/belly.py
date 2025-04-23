@@ -14,8 +14,9 @@ class Belly:
         self.tiempo_esperado += tiempo_en_horas
 
     def esta_gruñendo(self):
-        # El estómago gruñe si ha esperado al menos 1.5 horas y ha comido más de 10 pepinos
-        return self.tiempo_esperado >= 1.5 and self.pepinos_comidos > 10
+        suficiente_tiempo = self.tiempo_esperado >= 1.5
+        suficientes_pepinos = self.pepinos_comidos > 10
+        return suficiente_tiempo and suficientes_pepinos
     
     def obtener_pepinos_comidos(self):
         return self.pepinos_comidos

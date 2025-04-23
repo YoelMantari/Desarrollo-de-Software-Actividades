@@ -39,3 +39,9 @@ def test_pepinos_comidos():
     belly = Belly()
     belly.comer(15)
     assert belly.obtener_pepinos_comidos() == 15
+
+def test_estomago_gruñendo():
+    belly = Belly()
+    belly.comer(20)
+    belly.esperar(2)
+    assert belly.esta_gruñendo() is True
