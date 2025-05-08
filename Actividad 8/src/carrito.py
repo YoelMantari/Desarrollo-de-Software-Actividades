@@ -112,6 +112,15 @@ class Carrito:
             return total - descuento
         return total
 
+    # se retorna la lista de items ordenados segun precio o nombre
+    def obtener_items_ordenados(self, criterio: str):
+
+        if criterio == "precio":
+            return sorted(self.items, key=lambda item: item.producto.precio)
+        elif criterio == "nombre":
+            return sorted(self.items, key=lambda item: item.producto.nombre.lower())
+        else:
+            raise ValueError("Criterio inválido. Usa 'precio' o 'nombre'.")
 
 
 

@@ -209,6 +209,85 @@ def test_agregar_producto_excede_stock_lanza_excepcion():
     carrito = Carrito()
 
     # Act & Assert: se intenta agregar mas de lo que se permite y
-    # se captura el error.
+    # se captura el error
     with pytest.raises(ValueError, match="Cantidad a agregar excede el stock disponible"):
         carrito.agregar_producto(producto, cantidad=5)
+
+def test_ordenar_items_por_precio():
+
+    # Arrange, se agrega productos con distintos precios
+    carrito = Carrito()
+    producto1 = Producto("A", 300.0, stock=10)
+    producto2 = Producto("B", 100.0, stock=10)
+    producto3 = Producto("C", 200.0, stock=10)
+    carrito.agregar_producto(producto1)
+    carrito.agregar_producto(producto2)
+    carrito.agregar_producto(producto3)
+
+    # Act: se obtiene los items ordenados por precio
+    ordenados = carrito.obtener_items_ordenados("precio")
+
+    # Assert: se verifica que el orden sea ascendente por precio
+    precios = [item.producto.precio for item in ordenados]
+    assert precios == [100.0, 200.0, 300.0]
+
+def test_ordenar_items_criterio_invalido():
+
+    # Arrange, se agrega un producto al carrito
+    carrito = Carrito()
+    producto = Producto("X", 100.0, stock=5)
+    carrito.agregar_producto(producto)
+
+    # Act y Assert, se verifica que al usar un criterio invalido lanza excepción.
+    
+    with pytest.raises(ValueError, match="Criterio inválido"):
+        carrito.obtener_items_ordenados("peso")
+
+# ordenamiento correcto por precio
+def test_ordenar_items_por_precio():
+
+    #Arrange, se agrega productos con distintos precios.
+    carrito = Carrito()
+    producto1 = Producto("A", 300.0, stock=10)
+    producto2 = Producto("B", 100.0, stock=10)
+    producto3 = Producto("C", 200.0, stock=10)
+    carrito.agregar_producto(producto1)
+    carrito.agregar_producto(producto2)
+    carrito.agregar_producto(producto3)
+
+    #Act, se obtiene items ordenados por precio
+    ordenados = carrito.obtener_items_ordenados("precio")
+
+    #Assert, se verifica que el orden sea ascendente por precio
+    precios = [item.producto.precio for item in ordenados]
+    assert precios == [100.0, 200.0, 300.0]
+
+# ordenamiento correcto por nombre
+def test_ordenar_items_por_nombre():
+
+    #Arrange, se agrega productos con distintos nombres
+    carrito = Carrito()
+    producto1 = Producto("Zanahoria", 10.0, stock=10)
+    producto2 = Producto("Banana", 20.0, stock=10)
+    producto3 = Producto("Aguacate", 30.0, stock=10)
+    carrito.agregar_producto(producto1)
+    carrito.agregar_producto(producto2)
+    carrito.agregar_producto(producto3)
+
+    #Act, se obtiene items ordenados por nombre
+    ordenados = carrito.obtener_items_ordenados("nombre")
+
+    #Assert, se verifica que el orden sea alfabético
+    nombres = [item.producto.nombre for item in ordenados]
+    assert nombres == ["Aguacate", "Banana", "Zanahoria"]
+
+# validacion de criterio invalido
+def test_ordenar_items_criterio_invalido():
+    #Arrange, se agrega un producto al carrito
+    carrito = Carrito()
+    producto = Producto("X", 100.0, stock=5)
+    carrito.agregar_producto(producto)
+
+    #Act y Assert, se verifica que usar un criterio invalido lanza excepcion
+    with pytest.raises(ValueError, match="Criterio inválido"):
+        carrito.obtener_items_ordenados("peso")

@@ -197,3 +197,77 @@ def test_agregar_producto_excede_stock_lanza_excepcion():
 - Se confirman 14 pruebas unitarias exitosas.
 ![Descripción](Imagenes/Eje31.png)
 
+## Ejercicio 4: Ordenar items del carrito
+
+**se añade el método `obtener_items_ordenados` a la clase `Carrito` que permite ordenar los productos del carrito por nombre o precio unitario**
+```python
+    # se retorna la lista de items ordenados segun precio o nombre
+    def obtener_items_ordenados(self, criterio: str):
+
+        if criterio == "precio":
+            return sorted(self.items, key=lambda item: item.producto.precio)
+        elif criterio == "nombre":
+            return sorted(self.items, key=lambda item: item.producto.nombre.lower())
+        else:
+            raise ValueError("Criterio inválido. Usa 'precio' o 'nombre'.")
+
+```
+
+**Se agregan tres pruebas unitarias para verificar el funcionamiento del ordenamiento y la validación**
+```python
+# ordenamiento correcto por precio
+def test_ordenar_items_por_precio():
+
+    #Arrange, se agrega productos con distintos precios.
+    carrito = Carrito()
+    producto1 = Producto("A", 300.0, stock=10)
+    producto2 = Producto("B", 100.0, stock=10)
+    producto3 = Producto("C", 200.0, stock=10)
+    carrito.agregar_producto(producto1)
+    carrito.agregar_producto(producto2)
+    carrito.agregar_producto(producto3)
+
+    #Act, se obtiene items ordenados por precio
+    ordenados = carrito.obtener_items_ordenados("precio")
+
+    #Assert, se verifica que el orden sea ascendente por precio
+    precios = [item.producto.precio for item in ordenados]
+    assert precios == [100.0, 200.0, 300.0]
+
+# ordenamiento correcto por nombre
+def test_ordenar_items_por_nombre():
+
+    #Arrange, se agrega productos con distintos nombres
+    carrito = Carrito()
+    producto1 = Producto("Zanahoria", 10.0, stock=10)
+    producto2 = Producto("Banana", 20.0, stock=10)
+    producto3 = Producto("Aguacate", 30.0, stock=10)
+    carrito.agregar_producto(producto1)
+    carrito.agregar_producto(producto2)
+    carrito.agregar_producto(producto3)
+
+    #Act, se obtiene items ordenados por nombre
+    ordenados = carrito.obtener_items_ordenados("nombre")
+
+    #Assert, se verifica que el orden sea alfabético
+    nombres = [item.producto.nombre for item in ordenados]
+    assert nombres == ["Aguacate", "Banana", "Zanahoria"]
+
+# validacion de criterio invalido
+def test_ordenar_items_criterio_invalido():
+    #Arrange, se agrega un producto al carrito
+    carrito = Carrito()
+    producto = Producto("X", 100.0, stock=5)
+    carrito.agregar_producto(producto)
+
+    #Act y Assert, se verifica que usar un criterio invalido lanza excepcion
+    with pytest.raises(ValueError, match="Criterio inválido"):
+        carrito.obtener_items_ordenados("peso")
+```
+**Resultados**
+
+- Se ejecutaron 17 pruebas unitarias en total, todas pasaron las pruebas correctamente, lo cual confirma que la logica de ordenamiento funciona bien
+
+![Descripción](Imagenes/Eje41.png)
+
+
