@@ -128,7 +128,7 @@ def test_descuento_condicional_no_aplicado():
 
 ## Ejercicio 3: Manejo de stock en producto
 
-**Se añade el atributo stock a la clase `Producto` lo que permite que la cantidad máxima disponible para comprar un producto, tambien se modifica el metodo `agregar_producto()` para validar que la suma de cantidades no exceda ese límite.**
+**Se añade el atributo stock a la clase `Producto` lo que permite que la cantidad maxima disponible para comprar un producto, tambien se modifica el metodo `agregar_producto()` para validar que la suma de cantidades no exceda ese límite.**
 
 ```python
 class Producto:
@@ -192,3 +192,8 @@ def test_agregar_producto_excede_stock_lanza_excepcion():
     with pytest.raises(ValueError, match="Cantidad a agregar excede el stock disponible"):
         carrito.agregar_producto(producto, cantidad=5)
 ```
+**Resultados**
+
+- Se confirman 14 pruebas unitarias exitosas.
+![Descripción](Imagenes/Eje31.png)
+
