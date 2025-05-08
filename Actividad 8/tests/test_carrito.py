@@ -3,21 +3,15 @@ from src.carrito import Carrito, Producto
 from src.factories import ProductoFactory
 
 
-def test_agregar_producto_nuevo():
+def test_agregar_producto_nuevo(carrito,producto_generico):
 
-    #AAA
-
-    # Arrange: se crea un carrito y se genera un producto
-    carrito = Carrito()
-    producto = ProductoFactory(nombre="Laptop", precio=1000.00)
-    
     # Act: se agrega el producto al carrito
-    carrito.agregar_producto(producto)
+    carrito.agregar_producto(producto_generico)
     
     # Assert: se verifica que el carrito contiene un item con el producto y cantidad 1
     items = carrito.obtener_items()
     assert len(items) == 1
-    assert items[0].producto.nombre == "Laptop"
+    assert items[0].producto.nombre == "Genérico"
     assert items[0].cantidad == 1
 
 

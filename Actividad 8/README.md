@@ -271,3 +271,40 @@ def test_ordenar_items_criterio_invalido():
 ![Descripción](Imagenes/Eje41.png)
 
 
+## Ejercicio 5: Uso de Pytest Fixtures
+
+**Se crean fixtures en el archivo `conftest.py` para reutilizar instancias comunes como `Carrito` y `Producto` en múltiples pruebas**
+
+```python
+import pytest
+from src.carrito import Carrito
+from src.factories import ProductoFactory
+
+@pytest.fixture
+def carrito():
+    return Carrito()
+
+@pytest.fixture
+def producto_generico():
+    return ProductoFactory(nombre="Genérico", precio=100.0, stock=10)
+
+```
+
+**Se refactorizan las pruebas para aprovechar estas fixtures haciendo que Pytest las inyecte automáticamente al declararlas como parametros**
+```python
+def test_agregar_producto_nuevo(carrito,producto_generico):
+
+    # Act: se agrega el producto al carrito
+    carrito.agregar_producto(producto_generico)
+    
+    # Assert: se verifica que el carrito contiene un item con el producto y cantidad 1
+    items = carrito.obtener_items()
+    assert len(items) == 1
+    assert items[0].producto.nombre == "Genérico"
+    assert items[0].cantidad == 1
+```
+
+**Resultados**
+- Se ejecutaron 17 pruebas unitarias en total, todas pasaron correctamente, lo que confirma que la refactorizacion con fixture no afecto sistema
+
+![Descripción](Imagenes/Eje51.png)
