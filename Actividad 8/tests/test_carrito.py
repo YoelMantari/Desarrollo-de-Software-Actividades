@@ -187,3 +187,28 @@ def test_descuento_condicional_no_aplicado():
 
     # Assert, se crea un carrito con total menos al minimo
     assert total_con_descuento == 300.00
+
+# se puede agregar dentro del limite del stock
+def test_agregar_producto_dentro_del_stock():
+
+    # Arrange, se crea un producto con stock y carrito
+    producto = Producto("Memoria RAM", 120.0, stock=5)
+    carrito = Carrito()
+
+    # Act, se agrega producto dentro del limite permitido
+    carrito.agregar_producto(producto, cantidad=3)
+
+    # Assert, se crea un producto con stock y carrito
+    assert len(carrito.obtener_items()) == 1
+    assert carrito.obtener_items()[0].cantidad == 3
+
+def test_agregar_producto_excede_stock_lanza_excepcion():
+
+    # Arrange, se crea un producto con stock limitado
+    producto = Producto("SSD", 200.0, stock=4)
+    carrito = Carrito()
+
+    # Act & Assert: se intenta agregar mas de lo que se permite y
+    # se captura el error.
+    with pytest.raises(ValueError, match="Cantidad a agregar excede el stock disponible"):
+        carrito.agregar_producto(producto, cantidad=5)

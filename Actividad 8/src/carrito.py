@@ -1,10 +1,11 @@
 class Producto:
-    def __init__(self, nombre, precio):
+    def __init__(self, nombre, precio, stock = 10):
         self.nombre = nombre
         self.precio = precio
+        self.stock = stock
 
     def __repr__(self):
-        return f"Producto({self.nombre}, {self.precio})"
+        return f"Producto({self.nombre}, {self.precio},stock ={self.stock})"
 
 
 class ItemCarrito:
@@ -25,11 +26,21 @@ class Carrito:
 
     # se agrega un producto al carrito y si el producto existe entonces incrementa la cantidad
     def agregar_producto(self, producto, cantidad=1):
-
+        total_en_carrito = 0
         for item in self.items:
             if item.producto.nombre == producto.nombre:
-                item.cantidad += cantidad
-                return
+                total_en_carrito += item.cantidad
+                break
+
+        if total_en_carrito + cantidad > producto.stock:
+               raise ValueError("Cantidad a agregar excede el stock disponible")
+    
+               # si el producto ya esta solo suma
+        for item in self.items:
+             if item.producto.nombre == producto.nombre:
+                  item.cantidad += cantidad
+                  return
+
         self.items.append(ItemCarrito(producto, cantidad))
 
     # se remueve una cantidad del producto del carrito y si la cantidad llega 0
@@ -87,6 +98,7 @@ class Carrito:
     def vaciar(self):
         self.items = []
 
+    # aplica un descuento si el total del carrito es mayor o igual al minimo
     def aplicar_descuento_condicional(self, porcentaje, minimo):
 
         if porcentaje < 0 or porcentaje > 100:

@@ -125,3 +125,70 @@ def test_descuento_condicional_no_aplicado():
 **Resultados**
 - Se ejecuta todas las pruebas y las 12 pruebas pasaron correctamente, tambien se ve 2 warning pero eso se debe al error del pytest-cov, y el 86% se debe a que hay linea faltantes que la prueba no esta ejecutanto.
 ![Descripción](Imagenes/Eje21.png)
+
+## Ejercicio 3: Manejo de stock en producto
+
+**Se añade el atributo stock a la clase `Producto` lo que permite que la cantidad máxima disponible para comprar un producto, tambien se modifica el metodo `agregar_producto()` para validar que la suma de cantidades no exceda ese límite.**
+
+```python
+class Producto:
+    def __init__(self, nombre, precio, stock = 10):
+        self.nombre = nombre
+        self.precio = precio
+        self.stock = stock
+
+    def __repr__(self):
+        return f"Producto({self.nombre}, {self.precio},stock ={self.stock})"
+
+```
+
+**El metodo `agregar_producto()` ahora verifica si la cantidad pedida supera el stock del producto, en ese caso lanza una excepción.**
+```python
+    # se agrega un producto al carrito y si el producto existe entonces incrementa la cantidad
+    def agregar_producto(self, producto, cantidad=1):
+        total_en_carrito = 0
+        for item in self.items:
+            if item.producto.nombre == producto.nombre:
+                total_en_carrito += item.cantidad
+                break
+
+        if total_en_carrito + cantidad > producto.stock:
+               raise ValueError("Cantidad a agregar excede el stock disponible")
+    
+               # si el producto ya esta solo suma
+        for item in self.items:
+             if item.producto.nombre == producto.nombre:
+                  item.cantidad += cantidad
+                  return
+
+        self.items.append(ItemCarrito(producto, cantidad))
+```
+
+**Se actualiza también `ProductoFactory` para generar un stock aleatorio entre 1 y 100**
+```python
+import factory
+from .carrito import Producto
+
+class ProductoFactory(factory.Factory):
+    class Meta:
+        model = Producto
+
+    nombre = factory.Faker("word")
+    precio = factory.Faker("pyfloat", left_digits=2, right_digits=2, positive=True)
+    stock = factory.Faker("pyint", min_value=1, max_value=100)
+
+```
+**Se añaden dos pruebas, una que verifica que se puede agregar un producto si la cantidad está dentro del stock y otra que lanza un error si se excede el stock.**
+
+```python
+def test_agregar_producto_excede_stock_lanza_excepcion():
+
+    # Arrange, se crea un producto con stock limitado
+    producto = Producto("SSD", 200.0, stock=4)
+    carrito = Carrito()
+
+    # Act & Assert: se intenta agregar mas de lo que se permite y
+    # se captura el error.
+    with pytest.raises(ValueError, match="Cantidad a agregar excede el stock disponible"):
+        carrito.agregar_producto(producto, cantidad=5)
+```
