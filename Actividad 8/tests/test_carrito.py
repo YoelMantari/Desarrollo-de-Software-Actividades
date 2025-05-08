@@ -159,3 +159,31 @@ def test_vaciar_carrito():
     # Assert
     assert carrito.obtener_items() == []
     assert carrito.calcular_total() == 0
+
+# verificar que el descuento se aplique cuando el total del carrito cumple al menos con el minimo
+def test_descuento_condicional_aplicado():
+
+    # Arrange, se crea un carrito con un total mayor al minimo
+    carrito = Carrito()
+    producto = ProductoFactory(nombre="TV", precio=600.00)
+    carrito.agregar_producto(producto, cantidad=1)  # Total = 600
+
+    # Act, se aplica el descuento condicional
+    total_con_descuento = carrito.aplicar_descuento_condicional(15, 500)
+
+    # Assert, se crea un carrito con un total mayor al miniomo
+    assert total_con_descuento == 510.00 
+
+# verificar que ningun descuento no se aplique cuando el total no cumple al menos con el minimo
+def test_descuento_condicional_no_aplicado():
+
+    # Arrange, se crea un carrito con total menor al minimo
+    carrito = Carrito()
+    producto = ProductoFactory(nombre="Tablet", precio=300.00)
+    carrito.agregar_producto(producto, cantidad=1)  # Total = 300
+
+    # Act, aplica el descuento
+    total_con_descuento = carrito.aplicar_descuento_condicional(15, 500)
+
+    # Assert, se crea un carrito con total menos al minimo
+    assert total_con_descuento == 300.00

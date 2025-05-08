@@ -71,3 +71,57 @@ def test_vaciar_carrito():
   , aunque no del todo, ya que hay lineas no cubiertas o evaluadas en el archivo `carrito.py`
 	![Descripción](Imagenes/Eje13.png)
 
+## Ejercicio 2: Descuento por compra mínima
+
+**Se implementa el metodo `aplicar_descuento_condicional`, aplica descuento si carrito>= minimo**
+```python
+    # aplica un descuento si el total del carrito es mayor o igual al minimo
+    def aplicar_descuento_condicional(self, porcentaje, minimo):
+
+        if porcentaje < 0 or porcentaje > 100:
+            raise ValueError("El porcentaje debe estar entre 0 y 100")
+        if minimo < 0:
+            raise ValueError("El monto mínimo no puede ser negativo")
+
+        total = self.calcular_total()
+        if total >= minimo:
+            descuento = total * (porcentaje / 100)
+            return total - descuento
+        return total
+```
+**Se implementa prueba unitaria tanto para el descuento condicional como el no condicional**
+
+- Verifica que el descuento se aplique cuando el total del carrito cumple con el minimo
+```python
+sdef test_descuento_condicional_aplicado():
+
+    # Arrange, se crea un carrito con un total mayor al minimo
+    carrito = Carrito()
+    producto = ProductoFactory(nombre="TV", precio=600.00)
+    carrito.agregar_producto(producto, cantidad=1)  # Total = 600
+
+    # Act, se aplica el descuento condicional
+    total_con_descuento = carrito.aplicar_descuento_condicional(15, 500)
+
+    # Assert, se crea un carrito con un total mayor al miniomo
+    assert total_con_descuento == 510.00 
+
+```
+- Verifica que no se aplique ningun descuento si el  total es menor al minimo
+```python
+def test_descuento_condicional_no_aplicado():
+
+    # Arrange, se crea un carrito con total menor al minimo
+    carrito = Carrito()
+    producto = ProductoFactory(nombre="Tablet", precio=300.00)
+    carrito.agregar_producto(producto, cantidad=1)  # Total = 300
+
+    # Act, aplica el descuento
+    total_con_descuento = carrito.aplicar_descuento_condicional(15, 500)
+
+    # Assert, se crea un carrito con total menos al minimo
+    assert total_con_descuento == 300.00
+```
+**Resultados**
+- Se ejecuta todas las pruebas y las 12 pruebas pasaron correctamente, tambien se ve 2 warning pero eso se debe al error del pytest-cov, y el 86% se debe a que hay linea faltantes que la prueba no esta ejecutanto.
+![Descripción](Imagenes/Eje21.png)
