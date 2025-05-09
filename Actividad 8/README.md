@@ -354,3 +354,122 @@ def test_actualizar_cantidad_parametrizada(nueva_cantidad, debe_fallar):
 - Se ejecutaron 25 pruebas que pasaron correctamente, esto confirma que las pruebas parametrizadas fueron integradas correctamente
 
 ![Descripción](Imagenes/Eje61.png)
+
+## Ejercicio 7: Calcular impuestos en el carrito
+
+**Se crea un archivo `test_impuesto.py` con la siguiente prueba**
+```python
+# tests/test_impuestos.py
+
+import pytest
+from src.carrito import Carrito
+from src.factories import ProductoFactory
+
+def test_calcular_impuestos():
+    """
+    Red: Se espera que calcular_impuestos retorne el valor del impuesto.
+    """
+    # Arrange
+    carrito = Carrito()
+    producto = ProductoFactory(nombre="Producto", precio=250.00, stock=10)
+    carrito.agregar_producto(producto, cantidad=4)  # Total = 1000
+
+    # Act
+    impuesto = carrito.calcular_impuestos(10)  # 10% de 1000 = 100
+
+    # Assert
+    assert impuesto == 100.00
+
+```
+**La prueba falla debido a que el metodo `calcular_impueesto` no a sido integrado**
+![Descripción](Imagenes/Eje71.png)
+**Se implementa el metodo `calcular_impuestos` en la clase `Carrito`
+el cual calcula impuesto basado en el porcentaje**
+
+```python
+def calcular_impuestos(self, porcentaje):
+    """
+    Calcula el valor de los impuestos basados en el porcentaje indicado.
+
+    Args:
+        porcentaje (float): Porcentaje de impuesto a aplicar (entre 0 y 100).
+
+    Returns:
+        float: Monto del impuesto.
+
+    Raises:
+        ValueError: Si el porcentaje no está entre 0 y 100.
+    """
+    if porcentaje < 0 or porcentaje > 100:
+        raise ValueError("El porcentaje debe estar entre 0 y 100")
+    total = self.calcular_total()
+    return total * (porcentaje / 100)
+
+```
+**Resultados**
+
+- Calcular impuestos en el carrito sigue el enfoque Red-Green-Refactor que presenta una falla por que el metodo `calcular_impuestos ` no existia , Green por que se implemento la clase `Carrito` y Refactor que se le agrega la validacion
+![Descripción](Imagenes/Eje72.png)
+
+## Ejercicio 8: Aplicar cupón de descuento con límite máximo
+
+**Se crea una prueba `test_aplicar_cupon_con_limite` que intenta usar un metodo aun existente**
+
+```python
+def test_aplicar_cupon_con_limite():
+    """
+    Red: Se espera que al aplicar un cupón, el descuento no supere el límite máximo.
+    """
+    # Arrange
+    carrito = Carrito()
+    producto = ProductoFactory(nombre="Producto", precio=200.00)
+    carrito.agregar_producto(producto, cantidad=2)  # Total = 400
+
+    # Act
+    total_con_cupon = carrito.aplicar_cupon(20, 50)  # 20% de 400 = 80 → límite = 50
+
+    # Assert
+    assert total_con_cupon == 350.00
+
+```
+**Primer resultado al ejecutar `pytest tests/test_cupon.py` presenta una falla debido a que aun no existe el metodo**
+![Descripción](Imagenes/Eje81.png)
+
+**Se agrega el método dentro de la clase `Carrito` en `src/carrito.py`**
+```python
+def aplicar_cupon(self, descuento_porcentaje, descuento_maximo):
+    total = self.calcular_total()
+    descuento_calculado = total * (descuento_porcentaje / 100)
+    descuento_final = min(descuento_calculado, descuento_maximo)
+    return total - descuento_final
+
+```
+**Segundo resultado**
+![Descripción](Imagenes/Eje82.png)
+
+**Se mejora el metodo añadiendo validaciones**
+```python
+def aplicar_cupon(self, descuento_porcentaje, descuento_maximo):
+    """
+    Aplica un cupón de descuento al total del carrito, asegurando que el descuento no exceda el máximo permitido.
+    
+    Args:
+        descuento_porcentaje (float): Porcentaje de descuento a aplicar.
+        descuento_maximo (float): Valor máximo de descuento permitido.
+    
+    Returns:
+        float: Total del carrito después de aplicar el cupón.
+    
+    Raises:
+        ValueError: Si alguno de los valores es negativo.
+    """
+    if descuento_porcentaje < 0 or descuento_maximo < 0:
+        raise ValueError("Los valores de descuento deben ser positivos")
+    
+    total = self.calcular_total()
+    descuento_calculado = total * (descuento_porcentaje / 100)
+    descuento_final = min(descuento_calculado, descuento_maximo)
+    return total - descuento_final
+```
+**Tercera resultado**
+![Descripción](Imagenes/Eje83.png)

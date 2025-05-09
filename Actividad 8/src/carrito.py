@@ -123,4 +123,46 @@ class Carrito:
             raise ValueError("Criterio inválido. Usa 'precio' o 'nombre'.")
 
 
+    def calcular_impuestos(self, porcentaje):
+        """
+        Calcula el valor de los impuestos basados en el porcentaje indicado.
+
+        Args:
+            porcentaje (float): Porcentaje de impuesto a aplicar (entre 0 y 100).
+
+        Returns:
+            float: Monto del impuesto.
+
+        Raises:
+            ValueError: Si el porcentaje no está entre 0 y 100.
+        """
+        if porcentaje < 0 or porcentaje > 100:
+            raise ValueError("El porcentaje debe estar entre 0 y 100")
+        total = self.calcular_total()
+        return total * (porcentaje / 100)
+
+    def aplicar_cupon(self, descuento_porcentaje, descuento_maximo):
+        """
+        Aplica un cupón de descuento al total del carrito, asegurando que el descuento no exceda el máximo permitido.
+        
+        Args:
+            descuento_porcentaje (float): Porcentaje de descuento a aplicar.
+            descuento_maximo (float): Valor máximo de descuento permitido.
+        
+        Returns:
+            float: Total del carrito después de aplicar el cupón.
+        
+        Raises:
+            ValueError: Si alguno de los valores es negativo.
+        """
+        if descuento_porcentaje < 0 or descuento_maximo < 0:
+            raise ValueError("Los valores de descuento deben ser positivos")
+        
+        total = self.calcular_total()
+        descuento_calculado = total * (descuento_porcentaje / 100)
+        descuento_final = min(descuento_calculado, descuento_maximo)
+        return total - descuento_final
+
+
+
 
