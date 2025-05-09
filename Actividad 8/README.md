@@ -473,3 +473,68 @@ def aplicar_cupon(self, descuento_porcentaje, descuento_maximo):
 ```
 **Tercera resultado**
 ![Descripción](Imagenes/Eje83.png)
+
+## Ejercicio 9: Validación de stock al agregar productos (RGR)
+
+**Se crea una prueba `test_agregar_producto_excede_stock` que intenta usar un método aún no existente**
+```python
+def test_agregar_producto_excede_stock():
+    """
+    Red: Se espera que al intentar agregar una cantidad mayor a la disponible en stock se lance un ValueError.
+    """
+    # Arrange
+    producto = Producto("ProductoStock", 100.00, stock=5)
+    carrito = Carrito()
+
+    # Act & Assert
+    with pytest.raises(ValueError, match="Cantidad a agregar excede el stock disponible"):
+        carrito.agregar_producto(producto, cantidad=6)
+
+```
+**Resultado(RED)**
+![Descripción](Imagenes/Eje91.png)
+
+**Se modifica el metodo `agregar_producto()` en `Carrito` para validar contra el stock**
+```python
+def agregar_producto(self, producto, cantidad=1):
+    # Verifica el stock disponible
+    total_en_carrito = 0
+    for item in self.items:
+        if item.producto.nombre == producto.nombre:
+            total_en_carrito = item.cantidad
+            break
+    if total_en_carrito + cantidad > producto.stock:
+        raise ValueError("Cantidad a agregar excede el stock disponible")
+
+    # Agrega el producto o actualiza cantidad
+    for item in self.items:
+        if item.producto.nombre == producto.nombre:
+            item.cantidad += cantidad
+            return
+    self.items.append(ItemCarrito(producto, cantidad))
+
+```
+**REsultado(Green)**
+![Descripción](Imagenes/Eje92.png)
+
+
+**Se crea el archivo `test_cupon.py` con una prueba unitaria que valida que el descuento no supere el limite maximo**
+```python
+def agregar_producto(self, producto, cantidad=1):
+    """
+    Agrega un producto al carrito verificando que la cantidad no exceda el stock disponible.
+    """
+    item = self._buscar_item(producto)
+    cantidad_actual = item.cantidad if item else 0
+
+    if cantidad_actual + cantidad > producto.stock:
+        raise ValueError("Cantidad a agregar excede el stock disponible")
+
+    if item:
+        item.cantidad += cantidad
+    else:
+        self.items.append(ItemCarrito(producto, cantidad))
+
+```
+**Resultado(Refactor)**
+![Descripción](Imagenes/Eje93.png)

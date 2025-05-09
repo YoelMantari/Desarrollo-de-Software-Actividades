@@ -163,6 +163,33 @@ class Carrito:
         descuento_final = min(descuento_calculado, descuento_maximo)
         return total - descuento_final
 
+    def agregar_producto(self, producto, cantidad=1):
+        """
+        Agrega un producto al carrito verificando que la cantidad no exceda el stock disponible.
+        
+        Args:
+            producto (Producto): Producto a agregar.
+            cantidad (int): Cantidad a agregar.
+        
+        Raises:
+            ValueError: Si la cantidad total excede el stock del producto.
+        """
+        item = self._buscar_item(producto)
+        cantidad_actual = item.cantidad if item else 0
+
+        if cantidad_actual + cantidad > producto.stock:
+            raise ValueError("Cantidad a agregar excede el stock disponible")
+        
+        if item:
+            item.cantidad += cantidad
+        else:
+            self.items.append(ItemCarrito(producto, cantidad))
 
 
+    # devuelve el item del carrito q contiene el producto
+    def _buscar_item(self, producto):
 
+        for item in self.items:
+            if item.producto.nombre == producto.nombre:
+                return item
+        return None
