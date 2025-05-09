@@ -2,6 +2,30 @@ import pytest
 from src.carrito import Carrito, Producto
 from src.factories import ProductoFactory
 
+@pytest.mark.parametrize("precio_unitario, cantidad, descuento, total_esperado",
+    [
+        (100, 1, 0, 100),
+        (100, 2, 10, 180),
+        (50, 4, 25, 150),
+        (200, 1, 50, 100),
+    ]
+)
+def test_aplicar_descuento_parametrizado(precio_unitario, cantidad, descuento, total_esperado):
+
+    # Arrange, se crea carrito con un producto dado
+    carrito = Carrito()
+    producto = Producto("Promo", precio_unitario, stock=10)
+    carrito.agregar_producto(producto, cantidad)
+
+    # Act, se aplica descuento
+    total_con_descuento = carrito.aplicar_descuento(descuento)
+
+    # Assert, se compra con el total esperado
+    assert total_con_descuento == total_esperado
+
+
+
+
 
 def test_agregar_producto_nuevo(carrito,producto_generico):
 
@@ -62,6 +86,32 @@ def test_remover_producto_completo():
     items = carrito.obtener_items()
     assert len(items) == 0
 
+@pytest.mark.parametrize(
+    "nueva_cantidad, debe_fallar",
+    [
+        (5, False),
+        (0, False),  # Se permite 0 (debería eliminar el producto)
+        (-1, True),
+        (-10, True),
+    ]
+)
+
+def test_actualizar_cantidad_parametrizada(nueva_cantidad, debe_fallar):
+
+    # Arrange, se crea carrito y producto.
+    carrito = Carrito()
+    producto = Producto("Item", 50, stock=10)
+    carrito.agregar_producto(producto, cantidad=2)
+
+    # Act y Assert: se erifica comportamiento según cantidad valida o no
+    if debe_fallar:
+        with pytest.raises(ValueError):
+            carrito.actualizar_cantidad(producto, nueva_cantidad)
+    else:
+        carrito.actualizar_cantidad(producto, nueva_cantidad)
+        cantidad_resultante = sum(i.cantidad for i in carrito.obtener_items())
+        assert cantidad_resultante == nueva_cantidad
+
 
 def test_actualizar_cantidad_producto():
 
@@ -96,17 +146,17 @@ def test_actualizar_cantidad_a_cero_remueve_producto():
 
 def test_calcular_total():
 
-    # Arrange: Se crea un carrito y se agregan varios productos con distintas cantidades.
+    # Arrange, se crea un carrito y se agregan varios productos con distintas cantidades.
     carrito = Carrito()
     producto1 = ProductoFactory(nombre="Impresora", precio=200.00)
     producto2 = ProductoFactory(nombre="Escáner", precio=150.00)
     carrito.agregar_producto(producto1, cantidad=2)  # Total 400
     carrito.agregar_producto(producto2, cantidad=1)  # Total 150
     
-    # Act: Se calcula el total del carrito.
+    # Act, se calcula el total del carrito.
     total = carrito.calcular_total()
     
-    # Assert: Se verifica que el total es la suma correcta de cada item (precio * cantidad).
+    # Assert, se verifica que el total es la suma correcta de cada item (precio * cantidad).
     assert total == 550.00
 
 
@@ -285,3 +335,4 @@ def test_ordenar_items_criterio_invalido():
     #Act y Assert, se verifica que usar un criterio invalido lanza excepcion
     with pytest.raises(ValueError, match="Criterio inválido"):
         carrito.obtener_items_ordenados("peso")
+

@@ -308,3 +308,49 @@ def test_agregar_producto_nuevo(carrito,producto_generico):
 - Se ejecutaron 17 pruebas unitarias en total, todas pasaron correctamente, lo que confirma que la refactorizacion con fixture no afecto sistema
 
 ![Descripción](Imagenes/Eje51.png)
+
+## Ejercicio 6: Pruebas parametrizadas
+
+**Se utiliza `@pytest.mark.parametrize` para probar múltiples escenarios con una sola función de prueba lo que mejora**
+
+**Se evalua varios casos combinados de precio, cantidad y porcentaje de descuento**
+```python
+def test_aplicar_descuento_parametrizado(precio_unitario, cantidad, descuento, total_esperado):
+
+    # Arrange, se crea carrito con un producto dado
+    carrito = Carrito()
+    producto = Producto("Promo", precio_unitario, stock=10)
+    carrito.agregar_producto(producto, cantidad)
+
+    # Act, se aplica descuento
+    total_con_descuento = carrito.aplicar_descuento(descuento)
+
+    # Assert, se compra con el total esperado
+    assert total_con_descuento == total_esperado
+
+```
+
+**Se validan las cantidades lo que incluye eliminar el producto tambien y las cantidades negativas**
+```python
+def test_actualizar_cantidad_parametrizada(nueva_cantidad, debe_fallar):
+
+    # Arrange, se crea carrito y producto.
+    carrito = Carrito()
+    producto = Producto("Item", 50, stock=10)
+    carrito.agregar_producto(producto, cantidad=2)
+
+    # Act y assert, se erifica comportamiento según cantidad valida o no
+    if debe_fallar:
+        with pytest.raises(ValueError):
+            carrito.actualizar_cantidad(producto, nueva_cantidad)
+    else:
+        carrito.actualizar_cantidad(producto, nueva_cantidad)
+        cantidad_resultante = sum(i.cantidad for i in carrito.obtener_items())
+        assert cantidad_resultante == nueva_cantidad
+
+```
+**Resultados**
+
+- Se ejecutaron 25 pruebas que pasaron correctamente, esto confirma que las pruebas parametrizadas fueron integradas correctamente
+
+![Descripción](Imagenes/Eje61.png)
