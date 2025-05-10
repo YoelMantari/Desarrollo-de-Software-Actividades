@@ -255,6 +255,36 @@ class UserManager:
 `UserManager` ahora es desacoplado, flexible y fácilmente testeable**
 ![Descripción](Imagenes/Eje51.png)
 
+## Iteración 6: Introducir un “Spy” de notificaciones (Envío de correo)
 
+**Se escribio una prueba que usa un Mock como Spy para asegurar que el correo fue enviado**
 
+```python
+def test_envio_correo_bienvenida_al_agregar_usuario():
+    
+    #Arrange, se crea un mock de un servicio de email y se inyecta en UserManager
+
+    mock_email_service = MagicMock()
+    manager = UserManager(email_service=mock_email_service)
+    username = "nuevoUsuario"
+    password = "NuevaPass123!"
+
+    # Act, Se agrega un usuario.
+    manager.add_user(username, password)
+   
+    #Assert, Se verifica que el servicio de email fue llamado correctamente
+    mock_email_service.send_welcome_email.assert_called_once_with(username)
+```
+
+**Se modificó la clase UserManager para usar el servicio inyectado**
+
+```python
+    def add_user(self, username, password):
+        hashed = self.hash_service.hash(password)
+        self.repo.save_user(username, hashed)
+        if self.email_service:
+            self.email_service.send_welcome_email(username)
+```
+
+**Resultado: se valido que al agregar un usuario el metodo `send_welcome_email()` del servicio de correo fue llamado correctamente usando un Spy**
 

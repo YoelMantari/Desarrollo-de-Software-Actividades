@@ -81,3 +81,18 @@ def test_inyectar_repositorio_inmemory():
 
     # Assert, se verifica que el usuario existe en el repo
     assert manager.user_exists(username)
+
+def test_envio_correo_bienvenida_al_agregar_usuario():
+    
+    #Arrange, se crea un mock de un servicio de email y se inyecta en UserManager
+
+    mock_email_service = MagicMock()
+    manager = UserManager(email_service=mock_email_service)
+    username = "nuevoUsuario"
+    password = "NuevaPass123!"
+
+    # Act, Se agrega un usuario.
+    manager.add_user(username, password)
+   
+    #Assert, Se verifica que el servicio de email fue llamado correctamente
+    mock_email_service.send_welcome_email.assert_called_once_with(username)
