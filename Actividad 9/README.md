@@ -288,3 +288,4 @@ def test_envio_correo_bienvenida_al_agregar_usuario():
 
 **Resultado: se valido que al agregar un usuario el metodo `send_welcome_email()` del servicio de correo fue llamado correctamente usando un Spy**
 
+![Descripción](Imagenes/Eje61.png)
