@@ -40,5 +40,44 @@ def test_hash_service_es_llamado_al_agregar_usuario():
     # Assert, se verifica que se llamó hash exactamente una vez
     mock_hash_service.hash.assert_called_once_with(password)
 
+def test_no_se_puede_agregar_usuario_existente_stub():
+    # Este stub forzará que user_exists devuelva True
+    class StubUserManager(UserManager):
+        def user_exists(self, username):
+            return True
+
+    stub_manager = StubUserManager()
+    with pytest.raises(UserAlreadyExistsError) as exc:
+        stub_manager.add_user("cualquier", "1234")
+
+    assert "ya existe" in str(exc.value)
 
 
+
+class InMemoryUserRepository:
+    def __init__(self):
+        self.data = {}
+
+    def save_user(self, username, hashed_password):
+        if username in self.data:
+            raise UserAlreadyExistsError(f"'{username}' ya existe.")
+        self.data[username] = hashed_password
+
+    def get_user(self, username):
+        return self.data.get(username)
+
+    def exists(self, username):
+        return username in self.data
+
+def test_inyectar_repositorio_inmemory():
+    # Arrange, se instancia un repositorio falso
+    repo = InMemoryUserRepository()
+    manager = UserManager(repo=repo)
+    username = "fakeUser"
+    password = "fakePass"
+
+    # Act, se agrega el usuario
+    manager.add_user(username, password)
+
+    # Assert, se verifica que el usuario existe en el repo
+    assert manager.user_exists(username)

@@ -154,3 +154,107 @@ def test_hash_service_es_llamado_al_agregar_usuario():
 
 **Resultado, las pruebas pasaron correctamente al llamar a hash**
 ![Descripción](Imagenes/Eje23.png)
+
+## Iteración 4: Excepción al agregar usuario existente (Stubs/más pruebas negativas)
+
+**Se escribe una prueba que simula que el usuario ya existe usando un `Stub`, realizando esto se verificar que `add_user` lanza una excepción sin depender del estado interno real del sistema**
+
+```python  
+def test_no_se_puede_agregar_usuario_existente_stub():
+    # Este stub forzará que user_exists devuelva True
+    class StubUserManager(UserManager):
+        def user_exists(self, username):
+            return True  # Siempre dice que el usuario ya existe
+
+    stub_manager = StubUserManager()
+
+    with pytest.raises(UserAlreadyExistsError) as exc:
+        stub_manager.add_user("cualquier", "1234")
+
+    assert "ya existe" in str(exc.value)
+```
+
+**Resultado: `UserManager` lanza correctamente `UserAlreadyExistsError` si el usuario ya existe**
+![Descripción](Imagenes/Eje24.png)
+
+## Iteración 5: Agregar un "Fake" repositorio de datos (Inyección de Dependencias)
+
+**Se escribe una prueba unitaria que valida que se puede inyectar un repositorio externo en `UserManager` y que el usuario se guarda correctamente**
+
+```python
+class InMemoryUserRepository:
+    """Fake de un repositorio de usuarios en memoria."""
+    def __init__(self):
+        self.data = {}
+
+    def save_user(self, username, hashed_password):
+        if username in self.data:
+            raise UserAlreadyExistsError(f"'{username}' ya existe.")
+        self.data[username] = hashed_password
+
+    def get_user(self, username):
+        return self.data.get(username)
+
+    def exists(self, username):
+        return username in self.data
+
+def test_inyectar_repositorio_inmemory():
+    repo = InMemoryUserRepository()
+    manager = UserManager(repo=repo)  # inyectamos repo
+    username = "fakeUser"
+    password = "fakePass"
+
+    manager.add_user(username, password)
+    assert manager.user_exists(username)
+```
+
+**Modificamos y agregamos soporte para inyeccion de un repositorio externo y se encapsula el repositorio interno como fallback**
+```python
+class UserManager:
+    def __init__(self, hash_service=None, repo=None):
+        self.hash_service = hash_service or self._default_hash_service()
+        self.repo = repo or self._default_repo()
+
+    def _default_hash_service(self):
+        class DefaultHashService:
+            def hash(self, plain_text: str) -> str:
+                return plain_text
+            def verify(self, plain_text: str, hashed_text: str) -> bool:
+                return plain_text == hashed_text
+        return DefaultHashService()
+
+    def _default_repo(self):
+        class InternalRepo:
+            def __init__(self):
+                self.data = {}
+            def save_user(self, username, hashed_password):
+                if username in self.data:
+                    raise UserAlreadyExistsError(f"'{username}' ya existe.")
+                self.data[username] = hashed_password
+            def get_user(self, username):
+                return self.data.get(username)
+            def exists(self, username):
+                return username in self.data
+        return InternalRepo()
+
+    def add_user(self, username, password):
+        hashed = self.hash_service.hash(password)
+        self.repo.save_user(username, hashed)
+
+    def user_exists(self, username):
+        return self.repo.exists(username)
+
+    def authenticate_user(self, username, password):
+        stored_hash = self.repo.get_user(username)
+        if stored_hash is None:
+            raise UserNotFoundError(f"El usuario '{username}' no existe.")
+        return self.hash_service.verify(password, stored_hash)
+
+```
+**Resultado: todos los tests pasaron usando un repositorio inyectado Fake,
+`UserManager` ahora es desacoplado, flexible y fácilmente testeable**
+![Descripción](Imagenes/Eje51.png)
+
+
+
+
