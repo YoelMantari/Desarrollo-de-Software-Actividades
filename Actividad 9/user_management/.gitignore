@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.log
+*.sqlite3
+*.db
+
+# pytest y behave
+.pytest_cache/
+.coverage
+htmlcov/
+reports/
+behave.log
+
+# Entorno virtual
+venv/
+env/
+act9/
+
+# Archivos del sistema/editor
+*.swp
+.DS_Store
+.idea/
+.vscode/
+
+# Archivos secretos o de configuración
+.env
