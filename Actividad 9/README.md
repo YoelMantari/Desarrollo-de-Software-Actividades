@@ -131,3 +131,26 @@ class UserManager:
 - Esto confirma que la autenticación con un servicio de hashing inyectado mediante dependencias funciona como se espera usando un `FakeHashService`
 
 ![Descripción](Imagenes/Eje22.png)
+
+## Iteración 3: Uso de un Mock para verificar llamadas (Spy / Mock)
+
+
+**Se escribe una prueba automatizada para verificar que al ejecutar `add_user()`y se llama al método `hash`**
+
+```python
+def test_hash_service_es_llamado_al_agregar_usuario():
+    # Arrange, se crea un servicio de hashing simulado usando MagicMock
+    mock_hash_service = MagicMock()
+    manager = UserManager(hash_service=mock_hash_service)
+    username = "spyUser"
+    password = "spyPass"
+
+    # Act, se agrega el usuario
+    manager.add_user(username, password)
+
+    # Assert, se verifica que se llamó hash exactamente una vez
+    mock_hash_service.hash.assert_called_once_with(password)
+```
+
+**Resultado, las pruebas pasaron correctamente al llamar a hash**
+![Descripción](Imagenes/Eje23.png)

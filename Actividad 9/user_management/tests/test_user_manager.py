@@ -1,7 +1,7 @@
 # tests/test_user_manager.py
 import pytest
 from user_manager import UserManager, UserNotFoundError,UserAlreadyExistsError
-
+from unittest.mock import MagicMock
 
 class FakeHashService:
     def hash(self, plain_text: str) -> str:
@@ -26,6 +26,19 @@ def test_autenticar_usuario_exitoso_con_hash():
     # Assert, debe autenticarse correctamente
     assert autenticado, "El usuario debería autenticarse correctamente con la contraseña correcta."
 
+
+def test_hash_service_es_llamado_al_agregar_usuario():
+    # Arrange, se crea un servicio de hashing simulado usando MagicMock
+    mock_hash_service = MagicMock()
+    manager = UserManager(hash_service=mock_hash_service)
+    username = "spyUser"
+    password = "spyPass"
+
+    # Act, se agrega el usuario
+    manager.add_user(username, password)
+
+    # Assert, se verifica que se llamó hash exactamente una vez
+    mock_hash_service.hash.assert_called_once_with(password)
 
 
 

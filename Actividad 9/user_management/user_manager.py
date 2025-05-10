@@ -37,3 +37,5 @@ class UserManager:
         stored_hash = self.users[username]
         return self.hash_service.verify(password, stored_hash)
 
+        
+
