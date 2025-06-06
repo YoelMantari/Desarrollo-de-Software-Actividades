@@ -1,0 +1,2 @@
+**La actividad grupal 17 y 18 fue desarrollada en el siguiente repositorio. Aunque ya me retiré del grupo y no me encuentro participando actualmente, aún aparecen mis issues trabajadas**
+https://github.com/bxcowo/Actividad17-18-CC3S2-Grupal
