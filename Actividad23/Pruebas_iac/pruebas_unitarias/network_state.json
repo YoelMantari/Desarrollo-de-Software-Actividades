@@ -1,0 +1,24 @@
+{
+    "planned_values": {
+        "resources": [
+            {
+                "type": "local_network",
+                "name": "test-network-network",
+                "auto_create_subnets": false,
+                "region": "local-region"
+            },
+            {
+                "type": "local_subnet",
+                "name": "test-network-subnet-0",
+                "network": "test-network-network",
+                "cidr": "192.168.1.0/28"
+            },
+            {
+                "type": "local_subnet",
+                "name": "test-network-subnet-1",
+                "network": "test-network-network",
+                "cidr": "192.168.1.16/28"
+            }
+        ]
+    }
+}

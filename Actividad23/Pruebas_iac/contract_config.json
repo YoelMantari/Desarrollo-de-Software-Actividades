@@ -1,0 +1,31 @@
+{
+    "contract_config": {
+        "thresholds": {
+            "excellent": 100,
+            "good": 80,
+            "acceptable": 50,
+            "needs_improvement": 0
+        },
+        "priority_weights": {
+            "required_outputs": 0.7,
+            "optional_outputs": 0.3
+        }
+    },
+    "modules": {
+        "network": {
+            "description": "modulo de red y subredes",
+            "critical_outputs": ["network_id", "subnet_ids"],
+            "optional_outputs": ["network_cidr", "route_table_id"]
+        },
+        "compute": {
+            "description": "modulo de instancias y load balancers",
+            "critical_outputs": ["instance_ids", "security_group_id"],
+            "optional_outputs": ["instance_ips", "load_balancer_dns"]
+        },
+        "storage": {
+            "description": "modulo de buckets y almacenamiento",
+            "critical_outputs": ["bucket_id", "bucket_arn"],
+            "optional_outputs": ["bucket_url", "encryption_key_id"]
+        }
+    }
+}
