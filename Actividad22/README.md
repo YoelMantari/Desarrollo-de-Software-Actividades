@@ -286,7 +286,7 @@ class LocalFileModule:
         self.depends = depends
 
     def build(self):
-        # Generar contenido JSON con el orden de creación
+        # generar contenido JSON con el orden de creación
         log_content = {
             "creation_order": self.creation_order,
             "timestamp": datetime.now().isoformat(),
@@ -364,13 +364,13 @@ class Mediator:
         # Crear recurso principal
         self._create(self.module)
         
-        # Añadir logging automático al final
+        # añadir logging automático al final
         if self.enable_logging and not isinstance(self.module, LocalFileModule):
             last_output = DependsOn("null_resource", "load_balancer", {"port": "80"})
             log_module = LocalFileModule(creation_order=self.creation_log.copy(), depends=last_output)
             self._create(log_module)
         
-        # Incluir proveedor local en la configuración
+        # incluir proveedor local en la configuración
         merged = {
             "terraform": {
                 "required_providers": {
@@ -429,7 +429,7 @@ cat local_file.log
 
 **conclusion del registro local**
 
-El módulo `LocalFileModule` extiende el patrón mediador con capacidades de auditoría y logging,
+El modulo `LocalFileModule` extiende el patrón mediador,
 la extensión demuestra cómo el patrón mediador puede evolucionando aniadiendo nuevas capacidades como auditoría, logging
 sin romper la funcionalidad existente, manteniendo los principios de idempotencia y escalabilidad.
 
