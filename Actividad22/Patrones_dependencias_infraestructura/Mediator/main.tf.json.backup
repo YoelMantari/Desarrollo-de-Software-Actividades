@@ -1,0 +1,43 @@
+{
+  "terraform": {
+    "required_providers": {
+      "local": {
+        "source": "hashicorp/local",
+        "version": "~> 2.0"
+      }
+    }
+  },
+  "resource": {
+    "null_resource": {
+      "network": {
+        "triggers": {
+          "name": "hello-world-network"
+        }
+      },
+      "server": {
+        "triggers": {
+          "name": "hello-world-server",
+          "depends_on": "null_resource.network"
+        }
+      },
+      "firewall": {
+        "triggers": {
+          "port": "22",
+          "depends_on": "null_resource.server"
+        }
+      },
+      "load_balancer": {
+        "triggers": {
+          "port": "80",
+          "depends_on": "null_resource.firewall"
+        }
+      }
+    },
+    "local_file": {
+      "creation_log": {
+        "content": "{\n  \"creation_order\": [\n    \"network\",\n    \"network\",\n    \"server\",\n    \"firewall\",\n    \"load_balancer\"\n  ],\n  \"timestamp\": \"2025-07-16T09:40:57.609968\",\n  \"total_resources\": 5,\n  \"dependency_chain\": \"network -> network -> server -> firewall -> load_balancer\",\n  \"terraform_provider\": \"local_file\"\n}",
+        "filename": "local_file.log"
+      }
+    }
+  }
+}

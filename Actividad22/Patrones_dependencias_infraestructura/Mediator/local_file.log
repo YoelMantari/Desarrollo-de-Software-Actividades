@@ -1,0 +1,1 @@
+{"creation_order":["network","network","server","firewall","load_balancer"],"dependency_chain":"network -\u003e network -\u003e server -\u003e firewall -\u003e load_balancer","terraform_provider":"local_file","timestamp":"2025-07-15T09:45:57.609968","total_resources":5}
