@@ -87,7 +87,7 @@ docker-compose exec airflow-webserver airflow users create \
 
   ![Descripción](Imagenes/fot7.png)
 
-1. Observa como las tareas (`extract`, `transform`, `load`) se ejecutan secuencialmente en la vista **Graph** o **Grid**.
+1. Observa como las tareas se ejecutan secuencialmente en la vista **Graph** o **Grid**.
 
   ![Descripción](Imagenes/fot8.png)
 
